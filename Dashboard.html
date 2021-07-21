@@ -20,7 +20,7 @@
           }
 
           //For a specific channel, find the count and update the markup
-          async function updateSubsriber(channelId){
+          async function updateSubscriber(channelId){
             //For the specified channel ID, get the subscriber count from the YouTube API
             var subscriberCount = await getChannelSubscribers(channelId);
 
@@ -35,8 +35,8 @@
             var discoverSitecoreChannelId = 'UCJrNXcAEmZrqbf2suxbfIkg';
             var sitecoreChannelId = 'UCr6untnQn62iR3DkcswdKkw';
 
-            updateSubsriber(discoverSitecoreChannelId);
-            updateSubsriber(sitecoreChannelId);
+            updateSubscriber(discoverSitecoreChannelId);
+            updateSubscriber(sitecoreChannelId);
           }
           </script>
     </head>
