@@ -1,11 +1,43 @@
 <html>
+    <head>
+        <script src="https://apis.google.com/js/api.js"></script>
+        <script>
+          var apiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
+            //Get a subscriber
+            async function getChannelSubscribers(channelId) {
+              var subscriberCount = 
+                fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`)
+                  .then(response => {
+                    return response.json()
+                  })
+                  .then(data => {
+                    console.log(data);
+                    return data["items"][0].statistics.subscriberCount;
+                  })
+                return subscriberCount;
+            }
+
+            async function updateSubscribers(){
+              var channelId = 'UCJrNXcAEmZrqbf2suxbfIkg';
+              var subscriberCount = await getChannelSubscribers(channelId);
+
+              var subscriberCountDiv = document.getElementById(channelId);
+              if(subscriberCountDiv){
+                subscriberCountDiv.innerHTML = subscriberCount;
+              }
+            }
+          </script>
+          
+    </head>
     <body>
+        <button onclick="updateSubscribers()">Update stats</button>
+
         <h1>YouTube Dashboard</h1>
 
         <h2>Competitor Ranking</h2>
         <table>
             <tr><th>Channel</th><th>Subscribers</th><th>Growth</th></tr>
-            <tr><td>Discover Sitecore</td><td>7.35K</td><td>+0.2K</td></tr>
+            <tr><td>Discover Sitecore</td><td><div id="UCJrNXcAEmZrqbf2suxbfIkg" class="subscriberCount"></div></td><td>+0.2K</td></tr>
             <tr><td>Sitecore</td><td>3.03K</td><td>+0.07K</td></tr>
         </table>
     </body>
