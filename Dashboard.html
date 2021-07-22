@@ -1,9 +1,22 @@
 <html>
     <head>
         <script src="https://apis.google.com/js/api.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script>
           //API Key used for accessing the YouTube API
           var apiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
+
+          //This const represents the configuration of the list of the channels that will be displayed in the dashboard
+          const channels = {
+            DiscoverSitecore: {
+              ChannelId : 'UCJrNXcAEmZrqbf2suxbfIkg',
+              Label : 'Discover Sitecore'
+            },
+            Sitecore: {
+              ChannelId : 'UCr6untnQn62iR3DkcswdKkw',
+              Label : 'Sitecore'
+            }
+          }
 
           //Get the subscriber count for a specified channel
           async function getChannelSubscribers(channelId) {
@@ -20,35 +33,31 @@
           }
 
           //For a specific channel, find the count and update the markup
-          async function updateSubscriber(channelId){
+          async function addChannel(channel) {
             //For the specified channel ID, get the subscriber count from the YouTube API
-            var subscriberCount = await getChannelSubscribers(channelId);
+            var subscriberCount = await getChannelSubscribers(channel.ChannelId);
 
-            //Find the correct element to update for this channel and write the value of the subscriber count into the markup
-            var subscriberCountDiv = document.getElementById(channelId);
-            if(subscriberCountDiv){
-              subscriberCountDiv.innerHTML = subscriberCount;
-            }
+            //Create the row
+            var row = $("<tr><td>" + channel.Label + "</td><td>" + subscriberCount + "</td></tr>");
+
+            $("#channelList").find("tbody").append(row);
           }
+
           //Update the markup with the latest data from the API
           function updateStats(){
-            var discoverSitecoreChannelId = 'UCJrNXcAEmZrqbf2suxbfIkg';
-            var sitecoreChannelId = 'UCr6untnQn62iR3DkcswdKkw';
-
-            updateSubscriber(discoverSitecoreChannelId);
-            updateSubscriber(sitecoreChannelId);
+            for(var channel in channels){
+              addChannel(channels[channel]);
+            }
           }
+
+          $(document).ready(updateStats);
           </script>
     </head>
     <body>
-        <button onclick="updateStats()">Update stats</button>
-
         <h1>YouTube Dashboard</h1>
         <h2>Competitor Ranking</h2>
-        <table>
-            <tr><th>Channel</th><th>Subscribers</th></tr>
-            <tr><td>Discover Sitecore</td><td><div id="UCJrNXcAEmZrqbf2suxbfIkg" class="subscriberCount"></div></td></tr>
-            <tr><td>Sitecore</td><td><div id="UCr6untnQn62iR3DkcswdKkw" class="subscriberCount"></div></td></tr>
+        <table id="channelList">
+          <tr><th>Channel</th><th>Subscribers</th></tr>
         </table>
     </body>
 </html>
