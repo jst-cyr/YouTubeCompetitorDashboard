@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+          //API Key used for accessing the YouTube API
+          var apiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
+
+          //This const represents the configuration of the list of the channels that will be displayed in the dashboard
+          const channels = {
+            DiscoverSitecore: {
+              ChannelId : 'UCJrNXcAEmZrqbf2suxbfIkg',
+              Label : 'Discover Sitecore'
+            },
+            Sitecore: {
+              ChannelId : 'UCr6untnQn62iR3DkcswdKkw',
+              Label : 'Sitecore'
+            }
+          }
+
+          //Get the subscriber count for a specified channel
+          async function getChannelSubscribers(channelId) {
+            var subscriberCount = 
+              fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`)
+                .then(response => {
+                  return response.json()
+                })
+                .then(data => {
+                  console.log(data);
+                  return data["items"][0].statistics.subscriberCount;
+                })
+              return subscriberCount;
+          }
+
+          //For a specific channel, find the count and update the markup
+          async function addChannel(channel) {
+            //For the specified channel ID, get the subscriber count from the YouTube API
+            var subscriberCount = await getChannelSubscribers(channel.ChannelId);
+
+            //Create the row
+            var row = $("<tr><td>" + channel.Label + "</td><td>" + subscriberCount + "</td></tr>");
+
+            $("#channelList").find("tbody").append(row);
+          }
+
+          //Update the markup with the latest data from the API
+          function updateStats(){
+            for(var channel in channels){
+              addChannel(channels[channel]);
+            }
+          }
+
+          $(document).ready(updateStats);
+          </script>
+    </head>
+    <body>
+        <h1>YouTube Dashboard</h1>
+        <h2>Competitor Ranking</h2>
+        <table id="channelList">
+          <tr><th>Channel</th><th>Subscribers</th></tr>
+        </table>
+    </body>
+</html>
