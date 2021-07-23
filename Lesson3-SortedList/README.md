@@ -51,18 +51,20 @@ In the previous lesson, we described some of the code blocks, so this will only 
 		}
 	}
 
-The **channels** object previously had only a label and channelID, and there were only two channels. Additional channels have been added, as well as a **SubcriberCount** property where we can store the number of subcribers returned by the YouTube API.
+The **channels** object previously had only a label and channelID, and there were only two channels. Additional channels have been added to make it easier to see the sorting. 
+
+Also, you will note the new **SubcriberCount** property where we can store the number of subcribers returned by the YouTube API.
 
 ### updateStats function - Getting subscriber counts
 	for(var channel in channels){
 		channels[channel].SubscriberCount = await getChannelSubscribers(channels[channel].ChannelId);
 	}
 
-Previously, the updateStats method would call 'addChannel' for each channel which would retrieve the subscriber count and then create a row for the output.
+***Previously:*** The **updateStats** method would call **addChannel** for each channel which would retrieve the subscriber count and then create a row for the output.
 
-Now, we need to delay the DOM manipulation so that we can sort all channels. The updateStats function now loops through the channels, and for each channel stores the result from the YouTube API on the channel object in the **SubscriberCount** property.
+***Now:*** DOM manipulation must so that we can sort all channels first. The **updateStats** here loops through the channels object, and for each channel stores the result from the YouTube API on the channel object in the **SubscriberCount** property.
 
-**NOTE:** You will notice again that the 'channel' value in this loop is not the object, but an index in the channels object.
+**NOTE:** You will notice again that the 'channel' value in this loop is not the object, but an index in the channels object. We need to use it to get the inner channel object.
 
 ### updateStats - Sorting the channels!!
 	var sortedChannels = Object.fromEntries(
@@ -70,6 +72,7 @@ Now, we need to delay the DOM manipulation so that we can sort all channels. The
 	);
 
 **This is the important one for this lesson!**
+
 This block of code takes all the channels and returns an object that is sorted by the **SubscriberCount** property, from largest to smallest. We're going to break this one down piece by piece.
 
 
@@ -100,3 +103,17 @@ In this block, **'a'** and **'b'** represent two elements in the array being sor
 The sort is done as **b-a** so that we can get a descending order (i.e. the bigger numbers first). If **b>a** then it will sort **b** first, which is what we want. If this had been done as **a-b**, then if **b>a** it will sort **a** first, which would give us an ascending order.
 
 Read more: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+
+### Outputting the sorted list
+	for(var index in sortedChannels){
+		//Create the row, showing a label and the subscriber count
+		var row = $("<tr><td>" + sortedChannels[index].Label + "</td><td>" + sortedChannels[index].SubscriberCount + "</td></tr>");
+
+		//Add the row to the table that has ID 'channelList'
+		$("#channelList").find("tbody").append(row);
+	}
+
+This is a variation of the **addChannel** function that was used in the last lesson. Now that we have all the data we need, and we have sorted the list, this loop does the following:
+
+1. Creates a **tr** row with two cells, one with the channel label, and another with the subscription count.
+2. Adds that created row to the table that has ID **'channelList'**
