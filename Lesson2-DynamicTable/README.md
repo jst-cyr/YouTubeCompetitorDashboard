@@ -56,3 +56,10 @@ In this step, the updateStats was updated to loop over the **channels** object i
 **NOTE:** Coming from a background in C#, I expected 'channel' to be the actual channel object itself, but instead it was the property on the 'channels' object. This would map to **DiscoverSitecore** or **Sitecore** in the const variable defined earlier.  To get the channel object itself, you need to then access the object with the property, which is why you see this in the for loop:
 
 	channels[channel]
+
+### Running on page load
+	$(document).ready(updateStats);
+
+In the previous lesson, there was an 'Update stats' button that needed to be pressed to trigger the script. With the table being dynamically generated now, it makes more sense to run it right away, not waiting for user input.
+
+This line of code uses jQuery to inform the browser that as soon as the document is ready, it should call the **updateStats** function.
