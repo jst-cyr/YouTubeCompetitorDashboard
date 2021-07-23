@@ -10,11 +10,28 @@
           const channels = {
             DiscoverSitecore: {
               ChannelId : 'UCJrNXcAEmZrqbf2suxbfIkg',
-              Label : 'Discover Sitecore'
+              Label : 'Discover Sitecore',
+              SubscriberCount : 0
             },
             Sitecore: {
               ChannelId : 'UCr6untnQn62iR3DkcswdKkw',
-              Label : 'Sitecore'
+              Label : 'Sitecore',
+              SubscriberCount : 0
+            },
+            AdobeExperienceCloud: {
+              ChannelId: 'UCN-7ZEctit8Qu01BWeHQ0Fw',
+              Label : 'Adobe Experience Cloud',
+              SubscriberCount : 0
+            },
+            Contentful: {
+              ChannelId: 'UCrsEcxPCJlz5yZ_FKGo6D9g',
+              Label : 'Contentful',
+              SubscriberCount: 0
+            },
+            Optimizely: {
+              ChannelId: 'UCoLZaNd2rZ0mFPBD2aSPD7A',
+              Label : 'Optimizely (Episerver)',
+              SubscriberCount: 0
             }
           }
 
@@ -32,21 +49,25 @@
               return subscriberCount;
           }
 
-          //For a specific channel, find the count and update the markup
-          async function addChannel(channel) {
-            //For the specified channel ID, get the subscriber count from the YouTube API
-            var subscriberCount = await getChannelSubscribers(channel.ChannelId);
-
-            //Create the row
-            var row = $("<tr><td>" + channel.Label + "</td><td>" + subscriberCount + "</td></tr>");
-
-            $("#channelList").find("tbody").append(row);
-          }
-
           //Update the markup with the latest data from the API
-          function updateStats(){
+          async function updateStats(){
+            //For each channel, fill in the subscriber count using the YouTube API
             for(var channel in channels){
-              addChannel(channels[channel]);
+              channels[channel].SubscriberCount = await getChannelSubscribers(channels[channel].ChannelId);
+            }
+
+            //Sort the list of channels by their subscriber count, in descending order (biggest to smallest)
+            var sortedChannels = Object.fromEntries(
+              Object.entries(channels).sort((a,b) => b[1].SubscriberCount - a[1].SubscriberCount)
+            );
+
+            //For each of the channels in the sorted list, create a row and add it to the table
+            for(var index in sortedChannels){
+              //Create the row, showing a label and the subscriber count
+              var row = $("<tr><td>" + sortedChannels[index].Label + "</td><td>" + sortedChannels[index].SubscriberCount + "</td></tr>");
+
+              //Add the row to the table that has ID 'channelList'
+              $("#channelList").find("tbody").append(row);
             }
           }
 
