@@ -2,38 +2,10 @@
     <head>
         <script src="https://apis.google.com/js/api.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="data/Channels.js"></script>
         <script>
           //API Key used for accessing the YouTube API
           var apiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
-
-          //This const represents the configuration of the list of the channels that will be displayed in the dashboard
-          const channels = {
-            DiscoverSitecore: {
-              ChannelId : 'UCJrNXcAEmZrqbf2suxbfIkg',
-              Label : 'Discover Sitecore',
-              SubscriberCount : 0
-            },
-            Sitecore: {
-              ChannelId : 'UCr6untnQn62iR3DkcswdKkw',
-              Label : 'Sitecore',
-              SubscriberCount : 0
-            },
-            AdobeExperienceCloud: {
-              ChannelId: 'UCN-7ZEctit8Qu01BWeHQ0Fw',
-              Label : 'Adobe Experience Cloud',
-              SubscriberCount : 0
-            },
-            Contentful: {
-              ChannelId: 'UCrsEcxPCJlz5yZ_FKGo6D9g',
-              Label : 'Contentful',
-              SubscriberCount: 0
-            },
-            Optimizely: {
-              ChannelId: 'UCoLZaNd2rZ0mFPBD2aSPD7A',
-              Label : 'Optimizely (Episerver)',
-              SubscriberCount: 0
-            }
-          }
 
           //Get the subscriber count for a specified channel
           async function getChannelSubscribers(channelId) {
@@ -49,17 +21,53 @@
               return subscriberCount;
           }
 
+          //Invokes the YouTube API to get data about all channels provided in the list of channels
+          //RETURNS: An array of channel objects with the YouTube statistics data
+          async function getChannelData(channelsList){
+            //Build up a list of the IDs we want to get data for, separated by a comma
+            var channelIds = channelsList.map((channel) => channel[1].ChannelId).join();
+            
+            //Fetch the data and then fill out the objects
+            var youtubeChannelData = 
+              fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelIds}&key=${apiKey}`)
+                .then(response => {
+                  return response.json()
+                })
+                .then(data => {
+                  console.log(data);
+
+                  //Create an array to hold all the updated data
+                  var channelData = new Array();
+
+                  for(var i in data["items"]){
+                    //Get the data out of the response
+                    var channelId = data["items"][i].id;
+
+                    //Create a new object combining existing config data and the data from the YouTube API
+                    var matchedChannel = channelsList.find(channel => channel[1].ChannelId === channelId);
+                    if(matchedChannel){
+                      channelData.push({
+                        ChannelId: channelId,
+                        Label: matchedChannel[1].Label,
+                        SubscriberCount: data["items"][i].statistics.subscriberCount,
+                        ViewCount: data["items"][i].statistics.viewCount,
+                        VideoCount: data["items"][i].statistics.videoCount,
+                      })
+                    }
+                  }
+                  return channelData;
+                })
+
+              return youtubeChannelData;
+          }
+
           //Update the markup with the latest data from the API
           async function updateStats(){
-            //For each channel, fill in the subscriber count using the YouTube API
-            for(var channel in channels){
-              channels[channel].SubscriberCount = await getChannelSubscribers(channels[channel].ChannelId);
-            }
+            //Get a list of channel data from the API
+            var channelsList = await getChannelData(Object.entries(channels));
 
             //Sort the list of channels by their subscriber count, in descending order (biggest to smallest)
-            var sortedChannels = Object.fromEntries(
-              Object.entries(channels).sort((a,b) => b[1].SubscriberCount - a[1].SubscriberCount)
-            );
+            var sortedChannels = channelsList.sort((a,b) => b.SubscriberCount - a.SubscriberCount);
 
             //For each of the channels in the sorted list, create a row and add it to the table
             for(var index in sortedChannels){
