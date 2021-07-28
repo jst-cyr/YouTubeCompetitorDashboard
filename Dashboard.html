@@ -25,7 +25,7 @@
           //RETURNS: An array of channel objects with the YouTube statistics data
           async function getChannelData(channelsList){
             //Build up a list of the IDs we want to get data for, separated by a comma
-            var channelIds = channelsList.map((channel) => channel[1].ChannelId).join();
+            var channelIds = channelsList.map((channel) => channel.ChannelId).join();
             
             //Fetch the data and then fill out the objects
             var youtubeChannelData = 
@@ -44,11 +44,11 @@
                     var channelId = data["items"][i].id;
 
                     //Create a new object combining existing config data and the data from the YouTube API
-                    var matchedChannel = channelsList.find(channel => channel[1].ChannelId === channelId);
+                    var matchedChannel = channelsList.find(channel => channel.ChannelId === channelId);
                     if(matchedChannel){
                       channelData.push({
                         ChannelId: channelId,
-                        Label: matchedChannel[1].Label,
+                        Label: matchedChannel.Label,
                         SubscriberCount: data["items"][i].statistics.subscriberCount,
                         ViewCount: data["items"][i].statistics.viewCount,
                         VideoCount: data["items"][i].statistics.videoCount,
@@ -64,7 +64,7 @@
           //Update the markup with the latest data from the API
           async function updateStats(){
             //Get a list of channel data from the API
-            var channelsList = await getChannelData(Object.entries(channels));
+            var channelsList = await getChannelData(channels);
 
             //Sort the list of channels by their subscriber count, in descending order (biggest to smallest)
             var sortedChannels = channelsList.sort((a,b) => b.SubscriberCount - a.SubscriberCount);
