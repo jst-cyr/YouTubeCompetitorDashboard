@@ -36,25 +36,23 @@
                 .then(data => {
                   console.log(data);
 
-                  //Create an array to hold all the updated data
-                  var channelData = new Array();
+                  //Map the data from YouTube into a new array of channel objects
+                  var channelData = data["items"].map(item => 
+                    {
+                      //Find the matching channel in the list that was provided
+                      var matchedChannel = channelsList.find(channel => channel.ChannelId === item.id);
 
-                  for(var i in data["items"]){
-                    //Get the data out of the response
-                    var channelId = data["items"][i].id;
-
-                    //Create a new object combining existing config data and the data from the YouTube API
-                    var matchedChannel = channelsList.find(channel => channel.ChannelId === channelId);
-                    if(matchedChannel){
-                      channelData.push({
-                        ChannelId: channelId,
+                      //Create a new object combining existing config data and the data from the YouTube API
+                      return {
+                        ChannelId: item.id,
                         Label: matchedChannel.Label,
-                        SubscriberCount: data["items"][i].statistics.subscriberCount,
-                        ViewCount: data["items"][i].statistics.viewCount,
-                        VideoCount: data["items"][i].statistics.videoCount,
-                      })
+                        SubscriberCount: item.statistics.subscriberCount,
+                        ViewCount: item.statistics.viewCount,
+                        VideoCount: item.statistics.videoCount,
+                      }
                     }
-                  }
+                  )
+
                   return channelData;
                 })
 
