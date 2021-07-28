@@ -23,13 +23,16 @@ I tried to keep the code simple and self-documenting, but I know I needed to fig
 #### Using async on the function definition
 	async function getChannelSubscribers(channelId){}
 
-The first thing to notice in this function is the '**async**' on the function definition. I was trying to invoke the API in the method and return the value out of the function, but until I put 'async' on it the value returned was being lost and was only accessible within the function itself. I learned later that this all about [Using Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
+The first thing to notice in this function is the `async` on the function definition. I was trying to invoke the API in the method and return the value out of the function, but until I put `async` on it the value returned was being lost and was only accessible within the function itself. I learned later that this all about [Using Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
 
 #### Invoking the fetch
 
 	fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`)
 
-The first call in the method is invoking the API directly, without using the client library, and instead using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). I was trying to reduce the number of dependencies for this first step. This calls the API and passes in the **channelId** value passed to the function, as well as the **apiKey** value that was defined earlier in the code.
+The first call in the method is invoking the API directly, without using the client library, and instead using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). I was trying to reduce the number of dependencies for this first step. This calls the API and passes in the `channelId` value passed to the function, as well as the `apiKey` value that was defined earlier in the code.
+
+**Read more**
+ * [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 
 #### Converting the response
 
@@ -37,7 +40,10 @@ The first call in the method is invoking the API directly, without using the cli
     	return response.json()
     })
 
-The fetch is followed by a 'then' block which reads through the response JSON object and creates an object from it. More details here: https://developer.mozilla.org/en-US/docs/Web/API/Response/json
+The fetch is followed by a `then` block which reads through the response JSON object and creates an object from it. 
+
+**Read more:**
+ * [Response.json](https://developer.mozilla.org/en-US/docs/Web/API/Response/json)
 
 #### Extracting the subscription count
 
@@ -53,7 +59,7 @@ After converting the response to an object, the object is logged to console (to 
 #### Calling an async method
 	var subscriberCount = await getChannelSubscribers(channelId);
 
-The updateSubscriber method is also async, but when you call an async method you also need to use the **await** to make sure you wait for the result from the async function you are calling. Here the code is waiting on the getChannelSubscribers function to return the subscriberCount value for the specified channel.
+The updateSubscriber method is also async, but when you call an async method you also need to use the `await` to make sure you wait for the result from the async function you are calling. Here the code is waiting on the getChannelSubscribers function to return the subscriberCount value for the specified channel.
 
 #### Updating the DOM
 	var subscriberCountDiv = document.getElementById(channelId);

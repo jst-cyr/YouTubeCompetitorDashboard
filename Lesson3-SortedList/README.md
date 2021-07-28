@@ -51,18 +51,18 @@ In the previous lesson, we described some of the code blocks, so this will only 
 		}
 	}
 
-The **channels** object previously had only a label and channelID, and there were only two channels. Additional channels have been added to make it easier to see the sorting. 
+The `channels` object previously had only a label and channelID, and there were only two channels. Additional channels have been added to make it easier to see the sorting. 
 
-Also, you will note the new **SubcriberCount** property where we can store the number of subcribers returned by the YouTube API.
+Also, you will note the new `SubcriberCount` property where we can store the number of subscribers returned by the YouTube API.
 
 ### updateStats function - Getting subscriber counts
 	for(var channel in channels){
 		channels[channel].SubscriberCount = await getChannelSubscribers(channels[channel].ChannelId);
 	}
 
-***Previously:*** The **updateStats** method would call **addChannel** for each channel which would retrieve the subscriber count and then create a row for the output.
+***Previously:*** The `updateStats` method would call `addChannel` for each channel which would retrieve the subscriber count and then create a row for the output.
 
-***Now:*** DOM manipulation must so that we can sort all channels first. The **updateStats** here loops through the channels object, and for each channel stores the result from the YouTube API on the channel object in the **SubscriberCount** property.
+***Now:*** DOM manipulation must so that we can sort all channels first. The `updateStats` here loops through the channels object, and for each channel stores the result from the YouTube API on the channel object in the `SubscriberCount` property.
 
 **NOTE:** You will notice again that the 'channel' value in this loop is not the object, but an index in the channels object. We need to use it to get the inner channel object.
 
@@ -73,34 +73,34 @@ Also, you will note the new **SubcriberCount** property where we can store the n
 
 **This is the important one for this lesson!**
 
-This block of code takes all the channels and returns an object that is sorted by the **SubscriberCount** property, from largest to smallest. We're going to break this one down piece by piece.
+This block of code takes all the channels and returns an object that is sorted by the `SubscriberCount` property, from largest to smallest. We're going to break this one down piece by piece.
 
 
 ### Object.fromEntries
 	var sortedChannels = Object.fromEntries(...)
 
-The **fromEntries** portion of the code takes the result of what is inside the call and turns it back into an Object, instead of the Array that is normally created.
+The `fromEntries` portion of the code takes the result of what is inside the call and turns it back into an Object, instead of the Array that is normally created.
 
-Read more: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries
+**Read more:** https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries
 
 
 ### Object.entries
 	Object.entries(channels)
 
-This part of the block takes the **channels** object and turns that into an array. This is needed so that we can sort.
+This part of the block takes the `channels` object and turns that into an array. This is needed so that we can sort.
 
-Read more: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+**Read more:** https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
 
 ### Array.sort
 	.sort((a,b) => b[1].SubscriberCount - a[1].SubscriberCount)
 
-By chaining this sort onto the **entries** call, we can take the array of **channels** and ensure it is sorted by **SubscriberCount**
+By chaining this sort onto the `entries` call, we can take the array of `channels` and ensure it is sorted by `SubscriberCount`
 
-In this block, **'a'** and **'b'** represent two elements in the array being sorted. As the sort runs, it will compare two elements, and we use these variables so that we can define a comparison function.
+In this block, `a` and `b` represent two elements in the array being sorted. As the sort runs, it will compare two elements, and we use these variables so that we can define a comparison function.
 
-**b[1].SubscriberCount** and **a[1].SubscriberCount** inform the sort function what properties to access on the objects when doing the comparison.
+`b[1].SubscriberCount` and `a[1].SubscriberCount` inform the sort function what properties to access on the objects when doing the comparison.
 
-The sort is done as **b-a** so that we can get a descending order (i.e. the bigger numbers first). If **b>a** then it will sort **b** first, which is what we want. If this had been done as **a-b**, then if **b>a** it will sort **a** first, which would give us an ascending order.
+The sort is done as `b-a` so that we can get a descending order (i.e. the bigger numbers first). If `b>a` then it will sort `b` first, which is what we want. If this had been done as `a-b`, then if `b>a` it will sort `a` first, which would give us an ascending order.
 
 Read more: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 
@@ -113,7 +113,7 @@ Read more: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Glo
 		$("#channelList").find("tbody").append(row);
 	}
 
-This is a variation of the **addChannel** function that was used in the last lesson. Now that we have all the data we need, and we have sorted the list, this loop does the following:
+This is a variation of the `addChannel` function that was used in the last lesson. Now that we have all the data we need, and we have sorted the list, this loop does the following:
 
-1. Creates a **tr** row with two cells, one with the channel label, and another with the subscription count.
-2. Adds that created row to the table that has ID **'channelList'**
+1. Creates a `tr` row with two cells, one with the channel label, and another with the subscription count.
+2. Adds that created row to the table that has ID `channelList`
