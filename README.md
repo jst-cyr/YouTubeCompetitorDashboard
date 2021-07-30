@@ -24,3 +24,4 @@ Later lessons use more advanced technology for intermediate developers looking t
 2. [Lesson 2 - Building a table of channels dynamically](./Lesson2-DynamicTable/README.md)
 3. [Lesson 3 - Building a table with a sorted list](./Lesson3-SortedList/README.md)
 4. [Lesson 4 - Using Array functions to handle multiple results from the YouTube API](./Lesson4-Arrays/README.md)
+5. [Lesson 5 - Integrating Airtable as a database for your JavaScript app](./Lesson5-IntegratingAirtable/README.md)
