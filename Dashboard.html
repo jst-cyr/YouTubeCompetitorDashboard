@@ -2,7 +2,7 @@
     <head>
         <script src="https://apis.google.com/js/api.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script src="data/Channels.js"></script>
+        <script src="lib/airtable.browser.js"></script>
         <script>
           //API Key used for accessing the YouTube API
           var apiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
@@ -13,8 +13,29 @@
 
           //Retrieves the array of channels configured for the dashboard that we need to get data for from the API
           async function getChannelConfiguration(){
-            //TODO: Update to retrieve from Airtable
-            return channels;
+            //Load the Airtable API and specify authentication and the base we want to connect to
+            var Airtable = require('airtable');
+            Airtable.configure({
+              endpointUrl: 'https://api.airtable.com',
+              apiKey: readonlyApiKey
+            });
+            var base = Airtable.base(airtableBaseId);
+
+            //Select the list of records from the Airtable 
+            var records = await base('Channels').select().all();
+
+            //Create the array of configured channels
+            var channelConfigList = new Array();
+            records.forEach(function(record){
+              var channelConfig = {
+                Label: record.get('Label'),
+                ChannelId: record.get('ChannelId')
+              }
+              //Add to the list of channel configuration
+              channelConfigList.push(channelConfig);
+            })
+
+            return channelConfigList;
           }
 
           //Get the subscriber count for a specified channel
