@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <script src="https://apis.google.com/js/api.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="lib/airtable.browser.js"></script>
+        <script src="lib/youtubedata.js"></script>
+        <script>
+          //API Key used for accessing the YouTube API
+          var youtubeApiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
+
+          //Airtable identifiers for the API
+          var airtableBaseId = 'appDuKh62DrdrfGGy';
+          var readonlyApiKey = 'keyfGNPlzxgkVj5Eo';
+
+          //Retrieves the array of channels configured for the dashboard that we need to get data for from the API
+          async function getChannelConfiguration(){
+            //Load the Airtable API and specify authentication and the base we want to connect to
+            var Airtable = require('airtable');
+            Airtable.configure({
+              endpointUrl: 'https://api.airtable.com',
+              apiKey: readonlyApiKey
+            });
+            var base = Airtable.base(airtableBaseId);
+
+            //Select the list of records from the Airtable 
+            var records = await base('Channels').select().all();
+
+            //Create the array of configured channels
+            var channelConfigList = new Array();
+            records.forEach(function(record){
+              var channelConfig = {
+                Label: record.get('Label'),
+                ChannelId: record.get('ChannelId')
+              }
+              //Add to the list of channel configuration
+              channelConfigList.push(channelConfig);
+            })
+
+            return channelConfigList;
+          }
+
+          //Update the markup with the latest data from the API
+          async function updateStats(){
+            //Get the configured list of channels we want to show on the dashboard
+            var configuredChannels = await getChannelConfiguration();
+
+            //Get a list of channel data from the API
+            var youtubeData = new YouTubeData(youtubeApiKey);
+            var channelsList = await youtubeData.getChannelData(configuredChannels);
+
+            //Sort the list of channels by their subscriber count, in descending order (biggest to smallest)
+            var sortedChannels = channelsList.sort((a,b) => b.SubscriberCount - a.SubscriberCount);
+
+            //For each of the channels in the sorted list, create a row and add it to the table
+            for(var index in sortedChannels){
+              //Create the row, showing a label and the subscriber count
+              var row = $("<tr><td>" + sortedChannels[index].Label + "</td><td>" + sortedChannels[index].SubscriberCount + "</td></tr>");
+
+              //Add the row to the table that has ID 'channelList'
+              $("#channelList").find("tbody").append(row);
+            }
+          }
+
+          $(document).ready(updateStats);
+          </script>
+    </head>
+    <body>
+        <h1>YouTube Dashboard</h1>
+        <h2>Competitor Ranking</h2>
+        <table id="channelList">
+          <tr><th>Channel</th><th>Subscribers</th></tr>
+        </table>
+    </body>
+</html>
