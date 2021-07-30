@@ -7,6 +7,16 @@
           //API Key used for accessing the YouTube API
           var apiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
 
+          //Airtable identifiers for the API
+          var airtableBaseId = 'appDuKh62DrdrfGGy';
+          var readonlyApiKey = 'keyfGNPlzxgkVj5Eo';
+
+          //Retrieves the array of channels configured for the dashboard that we need to get data for from the API
+          async function getChannelConfiguration(){
+            //TODO: Update to retrieve from Airtable
+            return channels;
+          }
+
           //Get the subscriber count for a specified channel
           async function getChannelSubscribers(channelId) {
             var subscriberCount = 
@@ -61,8 +71,11 @@
 
           //Update the markup with the latest data from the API
           async function updateStats(){
+            //Get the configured list of channels we want to show on the dashboard
+            var configuredChannels = await getChannelConfiguration();
+
             //Get a list of channel data from the API
-            var channelsList = await getChannelData(channels);
+            var channelsList = await getChannelData(configuredChannels);
 
             //Sort the list of channels by their subscriber count, in descending order (biggest to smallest)
             var sortedChannels = channelsList.sort((a,b) => b.SubscriberCount - a.SubscriberCount);
