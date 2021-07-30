@@ -3,9 +3,10 @@
         <script src="https://apis.google.com/js/api.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="lib/airtable.browser.js"></script>
+        <script src="lib/youtubedata.js"></script>
         <script>
           //API Key used for accessing the YouTube API
-          var apiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
+          var youtubeApiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
 
           //Airtable identifiers for the API
           var airtableBaseId = 'appDuKh62DrdrfGGy';
@@ -38,65 +39,14 @@
             return channelConfigList;
           }
 
-          //Get the subscriber count for a specified channel
-          async function getChannelSubscribers(channelId) {
-            var subscriberCount = 
-              fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`)
-                .then(response => {
-                  return response.json()
-                })
-                .then(data => {
-                  console.log(data);
-                  return data["items"][0].statistics.subscriberCount;
-                })
-              return subscriberCount;
-          }
-
-          //Invokes the YouTube API to get data about all channels provided in the list of channels
-          //RETURNS: An array of channel objects with the YouTube statistics data
-          async function getChannelData(channelsList){
-            //Build up a list of the IDs we want to get data for, separated by a comma
-            var channelIds = channelsList.map((channel) => channel.ChannelId).join();
-            
-            //Fetch the data and then fill out the objects
-            var youtubeChannelData = 
-              fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelIds}&key=${apiKey}`)
-                .then(response => {
-                  return response.json()
-                })
-                .then(data => {
-                  console.log(data);
-
-                  //Map the data from YouTube into a new array of channel objects
-                  var channelData = data["items"].map(item => 
-                    {
-                      //Find the matching channel in the list that was provided
-                      var matchedChannel = channelsList.find(channel => channel.ChannelId === item.id);
-
-                      //Create a new object combining existing config data and the data from the YouTube API
-                      return {
-                        ChannelId: item.id,
-                        Label: matchedChannel.Label,
-                        SubscriberCount: item.statistics.subscriberCount,
-                        ViewCount: item.statistics.viewCount,
-                        VideoCount: item.statistics.videoCount,
-                      }
-                    }
-                  )
-
-                  return channelData;
-                })
-
-              return youtubeChannelData;
-          }
-
           //Update the markup with the latest data from the API
           async function updateStats(){
             //Get the configured list of channels we want to show on the dashboard
             var configuredChannels = await getChannelConfiguration();
 
             //Get a list of channel data from the API
-            var channelsList = await getChannelData(configuredChannels);
+            var youtubeData = new YouTubeData(youtubeApiKey);
+            var channelsList = await youtubeData.getChannelData(configuredChannels);
 
             //Sort the list of channels by their subscriber count, in descending order (biggest to smallest)
             var sortedChannels = channelsList.sort((a,b) => b.SubscriberCount - a.SubscriberCount);
