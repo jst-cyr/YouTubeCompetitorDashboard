@@ -1,3 +1,5 @@
+export {YouTubeData};
+
 class YouTubeData {
 	constructor(apiKey){
 		this.apiKey = apiKey;

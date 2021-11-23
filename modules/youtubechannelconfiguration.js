@@ -1,3 +1,5 @@
+export {YouTubeChannelConfiguration};
+
 class YouTubeChannelConfiguration {
 	constructor(apiKey, databaseId){
 		this.apiKey = apiKey;

@@ -1,3 +1,5 @@
+import { YouTubeData } from './youtubedata.js';
+
 class YouTubeChannelList {
 	constructor(apiKey, tableId, configuredChannels){
 		this.apiKey = apiKey;
@@ -24,3 +26,5 @@ class YouTubeChannelList {
 		}
 	}
 }
+
+export {YouTubeChannelList};
