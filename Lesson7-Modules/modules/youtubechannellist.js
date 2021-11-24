@@ -1,4 +1,5 @@
 import { YouTubeData } from './youtubedata.js';
+export {YouTubeChannelList};
 
 class YouTubeChannelList {
 	constructor(apiKey, tableId, configuredChannels){
@@ -27,4 +28,3 @@ class YouTubeChannelList {
 	}
 }
 
-export {YouTubeChannelList};
