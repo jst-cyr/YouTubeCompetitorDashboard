@@ -26,3 +26,4 @@ Later lessons use more advanced technology for intermediate developers looking t
 4. [Lesson 4 - Using Array functions to handle multiple results from the YouTube API](./Lesson4-Arrays/)
 5. [Lesson 5 - Integrating Airtable as a database for your JavaScript app](./Lesson5-IntegratingAirtable/)
 6. [Lesson 6 - Creating Classes in JavaScript](./Lesson6-Classes/)
+7. [Lesson 7 - Converting Classes to Modules](./Lesson7-Modules/)
