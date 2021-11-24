@@ -84,3 +84,5 @@ In the `youtubechannellist.js` file there is both an `export` for the class, but
  * **import:** https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
  * **export:** https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export
  * **ES6 In Depth - Modules:** https://hacks.mozilla.org/2015/08/es6-in-depth-modules/
+ * **Modules example repo:** https://github.com/mdn/js-examples/tree/master/modules/classes
+ * **CORS errors and modules:** https://stackoverflow.com/questions/10752055/cross-origin-requests-are-only-supported-for-http-error-when-loading-a-local
