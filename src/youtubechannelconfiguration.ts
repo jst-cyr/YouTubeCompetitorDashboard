@@ -1,7 +1,14 @@
 export {YouTubeChannelConfiguration};
 
+//This hack allows TypeScript to skip validating the 'require' statement in getChannelConfiguration(). 
+//In future steps, we should run on Node and import Airtable as a proper module.
+declare var require: any;
+
 class YouTubeChannelConfiguration {
-	constructor(apiKey, databaseId){
+	apiKey: string;
+	databaseId: string;
+
+	constructor(apiKey: string, databaseId: string){
 		this.apiKey = apiKey;
 		this.databaseId = databaseId;
 	}
@@ -21,10 +28,10 @@ class YouTubeChannelConfiguration {
 
 		//Create the array of configured channels
 		var channelConfigList = new Array();
-		records.forEach(function(record){
+		records.forEach(function(record: any){
 			var channelConfig = {
-			Label: record.get('Label'),
-			ChannelId: record.get('ChannelId')
+				Label: record.get('Label'),
+				ChannelId: record.get('ChannelId')
 			}
 			//Add to the list of channel configuration
 			channelConfigList.push(channelConfig);
