@@ -20,10 +20,10 @@ Later lessons use more advanced technology for intermediate developers looking t
 
 🚧[UNDER CONSTRUCTION]🚧
 
-1. [Lesson 1 - Retrieving subscription count for a channel](./Lesson1-ChannelSubscriptionCount/)
-2. [Lesson 2 - Building a table of channels dynamically](./Lesson2-DynamicTable/)
-3. [Lesson 3 - Building a table with a sorted list](./Lesson3-SortedList/)
-4. [Lesson 4 - Using Array functions to handle multiple results from the YouTube API](./Lesson4-Arrays/)
+1. [Lesson 1 - Retrieving YouTube subscription count for a channel](./Lesson1-ChannelSubscriptionCount/)
+2. [Lesson 2 - Building a table of channels dynamically using JavaScript](./Lesson2-DynamicTable/)
+3. [Lesson 3 - Building a table with a sorted list in JavaScript](./Lesson3-SortedList/)
+4. [Lesson 4 - Using JavaScript Array functions to handle multiple results from the YouTube API](./Lesson4-Arrays/)
 5. [Lesson 5 - Integrating Airtable as a database for your JavaScript app](./Lesson5-IntegratingAirtable/)
 6. [Lesson 6 - Creating Classes in JavaScript](./Lesson6-Classes/)
 7. [Lesson 7 - Converting Classes to Modules](./Lesson7-Modules/)

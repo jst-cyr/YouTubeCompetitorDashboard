@@ -1,4 +1,4 @@
-# Lesson 1 - Retrieving subscription count for a channel
+# Lesson 1 - Retrieving YouTube subscription count for a channel
 
 In this folder, learn how to use the YouTube API to retrieve the current subscription count for a channel and output it on the page.
 

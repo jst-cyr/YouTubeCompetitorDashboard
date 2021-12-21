@@ -1,4 +1,4 @@
-# Lesson 3 - Building a table with a sorted list
+# Lesson 3 - Building a table with a sorted list using JavaScript
 
 In the previous steps, we used JavaScript to invoke the YouTube API to get subscription counts and generate a table dynamically from the results.
 

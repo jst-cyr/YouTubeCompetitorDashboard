@@ -1,4 +1,4 @@
-# Lesson 4 - Working with Arrays
+# Lesson 4 - Using JavaScript Array functions to handle multiple results from the YouTube API
 
 In the previous step, we took a dynamically generated table and sorted the results. This was the first 'Array' manipulation done on the data.
 

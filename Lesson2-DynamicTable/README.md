@@ -1,4 +1,4 @@
-# Lesson 2 - Buiding a table of channels dynamically
+# Lesson 2 - Buiding a table of channels dynamically using JavaScript
 
 In this folder, we see how to update the initial YouTube channel subscription table built in the previous lesson and now generate the markup for the rows dynamically using jQuery and an object holding a list of channels.
 
