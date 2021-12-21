@@ -27,3 +27,4 @@ Later lessons use more advanced technology for intermediate developers looking t
 5. [Lesson 5 - Integrating Airtable as a database for your JavaScript app](./Lesson5-IntegratingAirtable/)
 6. [Lesson 6 - Creating Classes in JavaScript](./Lesson6-Classes/)
 7. [Lesson 7 - Converting Classes to Modules](./Lesson7-Modules/)
+8. *Lesson 8 - Converting JavaScript to TypeScript* 🚧**[UNDER CONSTRUCTION]**🚧
