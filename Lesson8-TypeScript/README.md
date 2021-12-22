@@ -35,7 +35,17 @@ In this project, I've been using ES6 to get access to a lot of things that TypeS
 
 TypeScript will change your script over to the correct version you target so you can have a mix of input files but a standard output to the browser. If you want to target users in older browsers, ES5 (or lower if you really want to) will work. For this tutorial, I've already required browsers that can support ES6, so in my example I've targeted ES6. You can read more about the `target` setting in the docs: https://www.typescriptlang.org/tsconfig#target
 
-### Convering YouTubeChannelConfiguration from JS to TS
+### Converting youtubeDashboard.js to TypeScript
+When renaming this file to a .ts file I immediately ran into issues that I didn't quite understand. One of the biggest changes I needed to make was to use references to JS files in the same directory, so that it would work whether it was in `src` or `dist`. 
+
+I also wanted to strongly type the configuredChannels variable. This doesn't have much value in this particular case, but it was a good way to learn how to type an array which is catching the result of a function.
+`const configuredChannels: Array<ChannelConfig> = await youtubeChannelConfiguration.getChannelConfiguration();`
+
+To get that to work, I also needed to add `ChannelConfig` class to the import at the top of the file:
+`import { YouTubeChannelConfiguration, ChannelConfig } from './youtubechannelconfiguration.js';`
+
+
+### Converting YouTubeChannelConfiguration from JS to TS
 To start enforcing type rules, you can rename a .js file to a .ts file and you'll start seeing the errors being enforced. In this project, I have very few files so I didn't use a tool and manually did one file at a time. If you are learning TypeScript, I felt like this was a great way to start learning what 'works' in JavaScript but doesn't work in TypeScript. Trying to figure out how to fix each one helped me learn more about how TypeScript enforces things.
 
 These are the big changes that needed to happen to convert the YouTubeChannelConfiguration class:
