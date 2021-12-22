@@ -1,6 +1,6 @@
-import { YouTubeChannelConfiguration } from '../dist/youtubechannelconfiguration.js';
-import { YouTubeChannelList } from '../src/youtubechannellist.js';
-          
+import { YouTubeChannelConfiguration, ChannelConfig } from './youtubechannelconfiguration.js';
+import { YouTubeChannelList } from './youtubechannellist.js';
+
 //API Key used for accessing the YouTube API
 const youtubeApiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
 
@@ -12,11 +12,11 @@ const readonlyApiKey = 'keyfGNPlzxgkVj5Eo';
 async function updateStats(){
   //Get the configured list of channels we want to show on the dashboard
   const youtubeChannelConfiguration = new YouTubeChannelConfiguration(readonlyApiKey, airtableBaseId);
-  const configuredChannels = await youtubeChannelConfiguration.getChannelConfiguration();
+  const configuredChannels: Array<ChannelConfig> = await youtubeChannelConfiguration.getChannelConfiguration();
 
   //Fill out the table in the markup with a new YouTube Channel listing
   const youtubeChannelList = new YouTubeChannelList(youtubeApiKey, "#channelList", configuredChannels);
   youtubeChannelList.fillTable();
 }
 
-$(document).ready(updateStats);
+updateStats();
