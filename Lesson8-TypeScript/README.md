@@ -39,7 +39,7 @@ TypeScript will change your script over to the correct version you target so you
 When renaming this file to a .ts file I immediately ran into issues that I didn't quite understand. One of the biggest changes I needed to make was to use references to JS files in the same directory, so that it would work whether it was in `src` or `dist`. 
 
 I also wanted to strongly type the configuredChannels variable. This doesn't have much value in this particular case, but it was a good way to learn how to type an array which is catching the result of a function.
-`const configuredChannels: Array<ChannelConfig> = await youtubeChannelConfiguration.getChannelConfiguration();`
+`const configuredChannels: ChannelConfig[] = await youtubeChannelConfiguration.getChannelConfiguration();`
 
 To get that to work, I also needed to add `ChannelConfig` class to the import at the top of the file:
 `import { YouTubeChannelConfiguration, ChannelConfig } from './youtubechannelconfiguration.js';`
