@@ -57,6 +57,14 @@ These are the big changes that needed to happen to convert the YouTubeChannelCon
 1. **New ChannelConfig class**: In order to add some strong typing to the `getChannelConfiguration` method, I needed a class to hold the data. Previously, I was defining this inline in the method, but this doesn't make it available to other classes in the project. I put it in the same file and added it as an export from this TS file.
 1. **Strongly typing getChannelConfiguration**: In the logic that reads from Airtable, I updated the Array to be strongly typed by declaring it as a generic array: `Array<ChannelConfig>`. The foreach loop now creates new `ChannelConfig` classes, which are added to this Array. I was able to use Visual Code's `ctrl-.` short-cut to update the method definition to have a return type (`async getChannelConfiguration(): Promise<ChannelConfig[]>`)
 
+### Converting YouTubeChannelList to TypeScript
+This class was performing DOM manipulation, so this was an interesting adjustment to drop using jQuery and instead manipulate directly with DOM functionality. These were the main changes required:
+
+1. **Define properties:** The constructor takes in three arguments which are set as properties, so these needed to be defined. One of these is an array of channel configurations, so was not a simple 'string' definition.
+1. **Type constructor parameters:** The constructor parameters needed to have a type added to them
+1. **Type the sorting function:** The inline variables in the sorting function need to be typed. However, the data being sorted hasn't been strongly typed yet so this becomes challenging. Using `any` as a workaround gets us to the next step, but ultimately the data being sorted should be strongly typed and then we can type the parameters. In this case, this was done with `TBD`
+1. **Manipulating the DOM:** jQuery manipulation of the DOM was replaced with basic DOM manipulation syntax to avoid having to import the jQuery library.
+
 ## Learn more about TypeScript
 
  * **TypeScript:** https://typescriptlang.org
