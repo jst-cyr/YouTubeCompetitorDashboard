@@ -17,18 +17,20 @@ class YouTubeChannelList {
     }
     //Update the markup with the latest data from the API
     fillTable() {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             //Get a list of channel data from the API
-            var youtubeData = new YouTubeData(this.apiKey);
-            var channelsList = yield youtubeData.getChannelData(this.configuredChannels);
+            const youtubeData = new YouTubeData(this.apiKey);
+            const channelsList = yield youtubeData.getChannelData(this.configuredChannels);
             //Sort the list of channels by their subscriber count, in descending order (biggest to smallest)
-            var sortedChannels = channelsList.sort((a, b) => b.SubscriberCount - a.SubscriberCount);
+            const sortedChannels = channelsList.sort((a, b) => b.SubscriberCount - a.SubscriberCount);
             //For each of the channels in the sorted list, create a row and add it to the table
             for (var index in sortedChannels) {
                 //Create the row, showing a label and the subscriber count
-                var row = $("<tr><td>" + sortedChannels[index].Label + "</td><td>" + sortedChannels[index].SubscriberCount + "</td></tr>");
-                //Add the row to the table that has ID 'channelList'
-                $(this.tableId).find("tbody").append(row);
+                const row = document.createElement("tr");
+                row.innerHTML = ("<td>" + sortedChannels[index].Label + "</td><td>" + sortedChannels[index].SubscriberCount + "</td>");
+                //Add the row to the table that has ID provided
+                (_b = (_a = document.getElementById(this.tableId)) === null || _a === void 0 ? void 0 : _a.querySelector("tbody")) === null || _b === void 0 ? void 0 : _b.appendChild(row);
             }
         });
     }

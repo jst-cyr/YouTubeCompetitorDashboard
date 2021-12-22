@@ -21,7 +21,7 @@ function updateStats() {
         const youtubeChannelConfiguration = new YouTubeChannelConfiguration(readonlyApiKey, airtableBaseId);
         const configuredChannels = yield youtubeChannelConfiguration.getChannelConfiguration();
         //Fill out the table in the markup with a new YouTube Channel listing
-        const youtubeChannelList = new YouTubeChannelList(youtubeApiKey, "#channelList", configuredChannels);
+        const youtubeChannelList = new YouTubeChannelList(youtubeApiKey, "channelList", configuredChannels);
         youtubeChannelList.fillTable();
     });
 }
