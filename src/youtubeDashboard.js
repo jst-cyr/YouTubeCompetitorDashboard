@@ -1,5 +1,5 @@
 import { YouTubeChannelConfiguration } from '../dist/youtubechannelconfiguration.js';
-import { YouTubeChannelList } from '../dist/youtubechannellist.js';
+import { YouTubeChannelList } from '../src/youtubechannellist.js';
           
 //API Key used for accessing the YouTube API
 var youtubeApiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';

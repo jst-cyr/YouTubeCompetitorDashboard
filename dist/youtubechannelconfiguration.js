@@ -1,23 +1,21 @@
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try {
-            step(generator.next(value));
-        }
-        catch (e) {
-            reject(e);
-        } }
-        function rejected(value) { try {
-            step(generator["throw"](value));
-        }
-        catch (e) {
-            reject(e);
-        } }
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export { YouTubeChannelConfiguration };
+export { YouTubeChannelConfiguration, ChannelConfig };
+//Class used to store data about a specific channel received from a data source
+class ChannelConfig {
+    constructor(label, channelId) {
+        this.Label = label;
+        this.ChannelId = channelId;
+    }
+}
+//Class used to retrieve all channel configuration from a data source
 class YouTubeChannelConfiguration {
     constructor(apiKey, databaseId) {
         this.apiKey = apiKey;
@@ -38,10 +36,7 @@ class YouTubeChannelConfiguration {
             //Create the array of configured channels
             var channelConfigList = new Array();
             records.forEach(function (record) {
-                var channelConfig = {
-                    Label: record.get('Label'),
-                    ChannelId: record.get('ChannelId')
-                };
+                var channelConfig = new ChannelConfig(record.get('Label'), record.get('ChannelId'));
                 //Add to the list of channel configuration
                 channelConfigList.push(channelConfig);
             });
