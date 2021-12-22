@@ -62,8 +62,16 @@ This class was performing DOM manipulation, so this was an interesting adjustmen
 
 1. **Define properties:** The constructor takes in three arguments which are set as properties, so these needed to be defined. One of these is an array of channel configurations, so was not a simple 'string' definition.
 1. **Type constructor parameters:** The constructor parameters needed to have a type added to them
-1. **Type the sorting function:** The inline variables in the sorting function need to be typed. However, the data being sorted hasn't been strongly typed yet so this becomes challenging. Using `any` as a workaround gets us to the next step, but ultimately the data being sorted should be strongly typed and then we can type the parameters. In this case, this was done with `TBD`
+1. **Type the sorting function:** The inline variables in the sorting function need to be typed. However, the data being sorted hasn't been strongly typed yet so this becomes challenging. Using `any` as a workaround gets us to the next step, but ultimately the data being sorted should be strongly typed and then we can type the parameters. In this case, this was done with a `ChannelData` class.
 1. **Manipulating the DOM:** jQuery manipulation of the DOM was replaced with basic DOM manipulation syntax to avoid having to import the jQuery library.
+
+### Converting YouTubeData to TypeScript
+This class reads data from the YouTube API and returns the information to the caller. Most of the updates here were about strongly typing parameters and classes:
+
+1. **ChannelData class:** This class was introduced to store data about each YouTube channel so that a strongly-typed collection could be returned and used.
+1. **Define properties:** Like with other classes, needed to define all the 
+1. **Defining a type for mapping:** Inside the `data["items"].map` function, the code needs to work against the data returned by the YouTube API. By strongly typing the object we are working with, it is easier to pass the data to other objects.
+1. **Creating ChannelData objects:** Instead of creating new untyped objects, updated to pass data into strongly typed ChannelData objects, ultimately returning an array of ChannelData.
 
 ## Learn more about TypeScript
 
