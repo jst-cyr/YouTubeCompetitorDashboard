@@ -12,7 +12,7 @@ const readonlyApiKey = 'keyfGNPlzxgkVj5Eo';
 async function updateStats(){
   //Get the configured list of channels we want to show on the dashboard
   const youtubeChannelConfiguration = new YouTubeChannelConfiguration(readonlyApiKey, airtableBaseId);
-  const configuredChannels: Array<ChannelConfig> = await youtubeChannelConfiguration.getChannelConfiguration();
+  const configuredChannels: ChannelConfig[] = await youtubeChannelConfiguration.getChannelConfiguration();
 
   //Fill out the table in the markup with a new YouTube Channel listing
   const youtubeChannelList = new YouTubeChannelList(youtubeApiKey, "#channelList", configuredChannels);
