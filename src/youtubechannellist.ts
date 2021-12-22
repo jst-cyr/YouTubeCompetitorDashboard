@@ -1,4 +1,4 @@
-import { YouTubeData } from './youtubedata.js';
+import { YouTubeData, ChannelData } from './youtubedata.js';
 import { ChannelConfig } from './youtubechannelconfiguration.js';
 export {YouTubeChannelList};
 
@@ -20,7 +20,7 @@ class YouTubeChannelList {
 		const channelsList = await youtubeData.getChannelData(this.configuredChannels);
 
 		//Sort the list of channels by their subscriber count, in descending order (biggest to smallest)
-		const sortedChannels = channelsList.sort((a:any,b:any) => b.SubscriberCount - a.SubscriberCount);
+		const sortedChannels = channelsList.sort((a:ChannelData,b:ChannelData) => b.SubscriberCount - a.SubscriberCount);
 
 		//For each of the channels in the sorted list, create a row and add it to the table
 		for(var index in sortedChannels){
