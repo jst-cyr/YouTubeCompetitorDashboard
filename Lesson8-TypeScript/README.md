@@ -35,17 +35,6 @@ In this project, I've been using ES6 to get access to a lot of things that TypeS
 
 TypeScript will change your script over to the correct version you target so you can have a mix of input files but a standard output to the browser. If you want to target users in older browsers, ES5 (or lower if you really want to) will work. For this tutorial, I've already required browsers that can support ES6, so in my example I've targeted ES6. You can read more about the `target` setting in the docs: https://www.typescriptlang.org/tsconfig#target
 
-### tsconfig.json -> include .ts
-Initially, I tried to use a more "inclusive" include parameter (`"include": ["./src/**/*"]`). This worked the first time I ran `tsc`, so I thought I was good. However, on subsequent runs I started getting duplicates in my `dist` output folder. I started seeing a structure like this:
-
-dist
-|- dist
-|- src
-
-So I would have the original JS files I generated in the root `dist` folder, and then the new generated files in `dist\dist`, and the original source files copied to `dist\src`. This was obviously not what I was hoping for.
-
-It seems that the TypeScript compiler sees the JavaScript files in the dist folder that were copied from SRC and somehow detects a conflict that requires subfolders in the generation. I updated my include to be more specific to only generate for TypeScript files (`"include": ["./src/**/*.ts"]`). Now, only the one JS file that needed to be generated was moved to the `dist` folder, and subsequent generations updated that file and no subfolders were created. Perfect!
-
 ### Convering YouTubeChannelConfiguration from JS to TS
 To start enforcing type rules, you can rename a .js file to a .ts file and you'll start seeing the errors being enforced. In this project, I have very few files so I didn't use a tool and manually did one file at a time. If you are learning TypeScript, I felt like this was a great way to start learning what 'works' in JavaScript but doesn't work in TypeScript. Trying to figure out how to fix each one helped me learn more about how TypeScript enforces things.
 
