@@ -1,11 +1,16 @@
 # Lesson 8 - Converting JavaScript to TypeScript
 
-**TBD**
+In the previous lesson, the steps covered how to take JavaScript code and Classes and create simple Modules.
+
+In this lesson, we will convert the JavaScript Modules into [TypeScript](https://typescriptlang.org) and introduce strong typing. This allows developers to get warnings about possible issues with variables and objects while building, allowing us to get to a working build faster. 
+
+Mostly, I wanted to do this step at this stage to be able to isolate what TypeScript is doing versus what other tech (like Next, React, Node, etc.) are introducing into the solution. When you look at the changes to make in this lesson versus what was in Lesson 7, you can see the specific changes we do for typing.
+
+Note that jQuery was also removed in this stage in favour of using some direct DOM manipulation logic instead which made it easier for the TypeScript conversion.
 
 ## Technology used
 - YouTube Channel API (v3): https://www.googleapis.com/youtube/v3/channels
 - Airtable browser API: https://github.com/Airtable/airtable.js/blob/master/build/airtable.browser.js
-- jQuery v3.6 (for working with the DOM)
 - ECMAScript v6 required: Previous steps introduced the need for Array functions [.join](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join) (v1), [.map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) (v5), and [.find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) (v6).
 - ECMAScript v6 also required for `class` definitions and `modules`.
 - Browser or library that supports `import` and `export`. See [Browser support](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#browser_support)
@@ -18,7 +23,7 @@ In the HTML file, you will see a working static HTML file that will let you see 
 1. Configure your local 'hosts' file to have an entry you will use to load this project (e.g. '127.0.0.1	youtube.local')
 1. Create a web application definition on your web server (such as IIS) that binds to this local hostname (e.g. `youtube.local`).
 1. Bind the web application to the folder where you are hosting the code (e.g. `%mypath%\Lesson8-TypeScript` where `%mypath%` is your local file system folder where the Lesson8 folder is)
-1. Open the HTML web page in your browser using the local hostname (e.g. `http://youtube.local/Modules.html`). 
+1. Open the HTML web page in your browser using the local hostname (e.g. `http://youtube.local/TypeScript.html`). 
 1. On load of the page, the table will be built out. You can add breakpoints to see the code in action.
 
 Note that there is no additional styling or extra markup. The HTML file is made to be as simple as possible for learning purposes.
