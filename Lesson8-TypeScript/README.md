@@ -31,8 +31,6 @@ Note that there is no additional styling or extra markup. The HTML file is made 
 ## What is the code doing?
 Now we'll break down the individual changes done in this lesson.
 
-### Subsection One
-
 ### tsconfig.json -> target: 'es6'
 In this project, I've been using ES6 to get access to a lot of things that TypeScript already supported (like modules). A lot of the examples for TypeScript migration and tsconfig.json target ES5. You might wonder: What version do I target?
 
