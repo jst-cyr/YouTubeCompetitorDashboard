@@ -29,8 +29,6 @@ In the HTML file, you will see a working static HTML file that will let you see 
 Note that there is no additional styling or extra markup. The HTML file is made to be as simple as possible for learning purposes.
 
 ## What is the code doing?
-**TBD**
-
 Now we'll break down the individual changes done in this lesson.
 
 ### Subsection One
