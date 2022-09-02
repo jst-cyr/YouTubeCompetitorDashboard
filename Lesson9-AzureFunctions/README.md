@@ -12,6 +12,10 @@ This will also extend our Airtable integration to store historical data.
 - Browser or library that supports `import` and `export`. See [Browser support](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#browser_support)
 - Web server (e.g. IIS) as 'import' and 'export' require a protocol such as HTTP. 
 - [TypeScript compiler](https://code.visualstudio.com/docs/typescript/typescript-tutorial#_install-the-typescript-compiler) (TSC) is required to compile TypeScript. **This is the first step in the lessons where you will compile TypeScript**
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Node.js 16.x](https://nodejs.org/en/download/releases/)
+- [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
+- [Azure Functions Core Tools 4.x](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash#install-the-azure-functions-core-tools)
 
 ## Running the sample
 In the HTML file, you will see a working static HTML file that will let you see the current subscription counts of two channels. To get it running:
@@ -31,4 +35,5 @@ TBD.
 ## Learn more about Azure Functions
 
  * **Azure Functions docs:** https://docs.microsoft.com/en-us/azure/azure-functions/
+ * **Create a JavaScript function in Azure using Visual Studio Code:** https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-node 
  
