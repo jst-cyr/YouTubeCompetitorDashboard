@@ -8,6 +8,17 @@ module.exports = async function (context, req) {
     const apiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
     const channelId = (req.query.channelId || (req.body && req.body.channelId));
 
+    //If no channelId provided, immediately stop processing
+    if(!channelId){
+        const noChannelIdMessage = "You must pass a value for required parameter 'channelId'.";
+        context.log(noChannelIdMessage);
+        context.res = {
+            status: 500,
+            body: noChannelIdMessage,
+        };
+        return;
+    }
+
     //Call the YouTube API for the channel data
     const youtube = google.youtube({
         version: 'v3',
@@ -20,15 +31,20 @@ module.exports = async function (context, req) {
     })
 
     //Extract the data from the response, if possible
-    var responseMessage = "This HTTP triggered function executed successfully. Pass a channel ID in the query string or in the request body to retrieve subscriber count.";
     if(youtubeResponse.data && youtubeResponse.data.items && youtubeResponse.data.items.length){
-        const { statistics: { subscriberCount, videoCount, viewCount } } = youtubeResponse.data.items[0];
-        responseMessage = `The channel ${channelId} has ${subscriberCount} subscribers, ${videoCount} videos and ${viewCount} views.`;
-        console.log(responseMessage);
+        const channelData = { statistics: { subscriberCount, videoCount, viewCount } } = youtubeResponse.data.items[0];
+        context.log(`The channel '${channelId}' has ${subscriberCount} subscribers, ${videoCount} videos and ${viewCount} views.`);
+        context.res = {
+            body: channelData,
+        }
+        return;
     }
 
+    //If there is no data found, report back a 404 (no channelId found)
+    const noChannelFoundMessage = `No data found in YouTube API with channel id '${channelId}'`;
+    context.log(noChannelFoundMessage);
     context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: responseMessage
+        status: 404,
+        body: noChannelFoundMessage,
     };
 }
