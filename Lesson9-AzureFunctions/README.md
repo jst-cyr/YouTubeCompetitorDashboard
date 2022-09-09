@@ -29,7 +29,15 @@ In the HTML file, you will see a working static HTML file that will let you see 
 Note that there is no additional styling or extra markup. The HTML file is made to be as simple as possible for learning purposes.
 
 ## What is the code doing?
-TBD.
+
+### Switching to Google client API
+In the original web page, I was using `fetch` to hit the Google API. Trying to move this code directly over to Azure Functions proved to be a bit of a pain. Some of the things I hit:
+
+1. `fetch` is not defined: In the version of Node I'm using, you can't invoke fetch. You need to import a library
+2. `node-fetch` wouldn't work with `require`: I tried to use `node-fetch` as a library, but both require and import weren't working outside the function. Rather than continue trying to figure out module definitions, I used a dynamic import.... this did work, sort of.
+3. `ERR_INVALID_URL` Invalid URL errors: Even with a completely valid URL, validated through my browser, the dynamically imported node-fetch kept telling me it was an invalid URL when running in the Azure Function.
+
+However, while trying to figure out why I stumbled across some very simple code to use the Google API client and an API Key to do the query. It was very easy, and with this being server-side now I didn't need to meet my requirement for running in the browser.
 
 
 ## Learn more about Azure Functions
