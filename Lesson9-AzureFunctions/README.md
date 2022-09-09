@@ -36,4 +36,4 @@ TBD.
 
  * **Azure Functions docs:** https://docs.microsoft.com/en-us/azure/azure-functions/
  * **Create a JavaScript function in Azure using Visual Studio Code:** https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-node 
- 
+ * **Invoking Google API client to get channel statistics in JavaScript:** https://stackoverflow.com/questions/70714671/how-do-i-get-a-subscriber-count-from-youtube-api-by-channel-name
