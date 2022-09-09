@@ -6,7 +6,7 @@ module.exports = async function (context, req) {
 
     //Setup the request data we need to call the API
     const apiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
-    const channelId = (req.query.name || (req.body && req.body.name));
+    const channelId = (req.query.channelId || (req.body && req.body.channelId));
 
     //Call the YouTube API for the channel data
     const youtube = google.youtube({
