@@ -32,10 +32,9 @@ module.exports = async function (context, req) {
 
     //Extract the data from the response, if possible
     if(youtubeResponse.data && youtubeResponse.data.items && youtubeResponse.data.items.length){
-        const channelData = { statistics: { subscriberCount, videoCount, viewCount } } = youtubeResponse.data.items[0];
-        context.log(`The channel '${channelId}' has ${subscriberCount} subscribers, ${videoCount} videos and ${viewCount} views.`);
+        context.log(`YouTube data for '${channelId}':  ${youtubeResponse.data}`);
         context.res = {
-            body: channelData,
+            body: youtubeResponse.data,
         }
         return;
     }
