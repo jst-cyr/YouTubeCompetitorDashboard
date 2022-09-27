@@ -18,12 +18,6 @@ class ChannelData{
 }
 
 class YouTubeData {
-	apiKey: string;
-
-	constructor(apiKey: string){
-		this.apiKey = apiKey;
-	}
-
 	//Get the subscriber count for a specified channel
 	async getChannelSubscribers(channelId: string): Promise<Number>{
 

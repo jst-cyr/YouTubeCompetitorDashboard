@@ -10,8 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { YouTubeData } from './youtubedata.js';
 export { YouTubeChannelList };
 class YouTubeChannelList {
-    constructor(apiKey, tableId, configuredChannels) {
-        this.apiKey = apiKey;
+    constructor(tableId, configuredChannels) {
         this.tableId = tableId;
         this.configuredChannels = configuredChannels;
     }
@@ -20,7 +19,7 @@ class YouTubeChannelList {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             //Get a list of channel data from the API
-            const youtubeData = new YouTubeData(this.apiKey);
+            const youtubeData = new YouTubeData();
             const channelsList = yield youtubeData.getChannelData(this.configuredChannels);
             //Sort the list of channels by their subscriber count, in descending order (biggest to smallest)
             const sortedChannels = channelsList.sort((a, b) => b.SubscriberCount - a.SubscriberCount);

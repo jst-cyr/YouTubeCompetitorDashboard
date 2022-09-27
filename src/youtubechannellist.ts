@@ -3,12 +3,10 @@ import { ChannelConfig } from './youtubechannelconfiguration.js';
 export {YouTubeChannelList};
 
 class YouTubeChannelList {
-	apiKey: string;
 	tableId: string;
 	configuredChannels: ChannelConfig[];
 
-	constructor(apiKey: string, tableId: string, configuredChannels: ChannelConfig[]){
-		this.apiKey = apiKey;
+	constructor(tableId: string, configuredChannels: ChannelConfig[]){
 		this.tableId = tableId;
 		this.configuredChannels = configuredChannels;
 	}
@@ -16,7 +14,7 @@ class YouTubeChannelList {
 	//Update the markup with the latest data from the API
 	async fillTable(){
 		//Get a list of channel data from the API
-		const youtubeData = new YouTubeData(this.apiKey);
+		const youtubeData = new YouTubeData();
 		const channelsList = await youtubeData.getChannelData(this.configuredChannels);
 
 		//Sort the list of channels by their subscriber count, in descending order (biggest to smallest)

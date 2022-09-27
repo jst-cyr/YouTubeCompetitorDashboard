@@ -18,9 +18,6 @@ class ChannelData {
     }
 }
 class YouTubeData {
-    constructor(apiKey) {
-        this.apiKey = apiKey;
-    }
     //Get the subscriber count for a specified channel
     getChannelSubscribers(channelId) {
         return __awaiter(this, void 0, void 0, function* () {

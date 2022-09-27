@@ -1,9 +1,6 @@
 import { YouTubeChannelConfiguration, ChannelConfig } from './youtubechannelconfiguration.js';
 import { YouTubeChannelList } from './youtubechannellist.js';
 
-//API Key used for accessing the YouTube API
-const youtubeApiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
-
 //Airtable identifiers for the API
 const airtableBaseId = 'appDuKh62DrdrfGGy';
 const readonlyApiKey = 'keyfGNPlzxgkVj5Eo';
@@ -15,7 +12,7 @@ async function updateStats(){
   const configuredChannels: ChannelConfig[] = await youtubeChannelConfiguration.getChannelConfiguration();
 
   //Fill out the table in the markup with a new YouTube Channel listing
-  const youtubeChannelList = new YouTubeChannelList(youtubeApiKey, "channelList", configuredChannels);
+  const youtubeChannelList = new YouTubeChannelList("channelList", configuredChannels);
   youtubeChannelList.fillTable();
 }
 
