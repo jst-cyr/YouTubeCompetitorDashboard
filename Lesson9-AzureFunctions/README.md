@@ -1,8 +1,6 @@
 # Lesson 9 - Adding Azure Functions
 
-In the previous lesson, the application was updated to TypeScript in preparation for a later move to Next.js. Now, we are going to move our business logic into [Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/) and out of the JavaScript. This will allow for the code to run regularly, even when the website is not being visited.
-
-This will also extend our Airtable integration to store historical data.
+In the previous lesson, the application was updated to TypeScript in preparation for a later move to Next.js. Now, we are going to move our business logic into [Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/) and out of the JavaScript. This will allow us to move API keys into server-side code with minimal changes to our application.
 
 ## Technology used
 - YouTube Channel API (v3): https://www.googleapis.com/youtube/v3/channels
@@ -39,6 +37,8 @@ In the original web page, I was using `fetch` to hit the Google API. Trying to m
 
 However, while trying to figure out why I stumbled across some very simple code to use the Google API client and an API Key to do the query. It was very easy, and with this being server-side now I didn't need to meet my requirement for running in the browser.
 
+### Hiding the YouTube API Key
+Another key change is that the calling JavaScript functions no longer requires a YouTube API Key, meaning the user cannot see the API key in the browser's page source view. By moving the API key into the Azure function, this is now hidden.
 
 ## Learn more about Azure Functions
 
