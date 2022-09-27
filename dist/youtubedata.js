@@ -24,7 +24,7 @@ class YouTubeData {
     //Get the subscriber count for a specified channel
     getChannelSubscribers(channelId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const subscriberCount = fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${this.apiKey}`)
+            const subscriberCount = fetch(`https://jcy-dashboard-capturesubscribers.azurewebsites.net/api/capturesubscribers?channelId=${channelId}`)
                 .then(response => {
                 return response.json();
             })
@@ -42,7 +42,7 @@ class YouTubeData {
             //Build up a list of the IDs we want to get data for, separated by a comma
             const channelIds = channelsList.map((channel) => channel.ChannelId).join();
             //Fetch the data and then fill out the objects
-            var youtubeChannelData = fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelIds}&key=${this.apiKey}`)
+            var youtubeChannelData = fetch(`https://jcy-dashboard-capturesubscribers.azurewebsites.net/api/capturesubscribers?channelId=${channelIds}`)
                 .then(response => {
                 return response.json();
             })

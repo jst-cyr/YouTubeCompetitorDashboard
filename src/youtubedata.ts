@@ -26,8 +26,9 @@ class YouTubeData {
 
 	//Get the subscriber count for a specified channel
 	async getChannelSubscribers(channelId: string): Promise<Number>{
+
 		const subscriberCount: Promise<Number> = 
-			fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${this.apiKey}`)
+			fetch(`https://jcy-dashboard-capturesubscribers.azurewebsites.net/api/capturesubscribers?channelId=${channelId}`)
 			.then(response => {
 				return response.json()
 			})
@@ -46,7 +47,7 @@ class YouTubeData {
 		
 		//Fetch the data and then fill out the objects
 		var youtubeChannelData = 
-			fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelIds}&key=${this.apiKey}`)
+			fetch(`https://jcy-dashboard-capturesubscribers.azurewebsites.net/api/capturesubscribers?channelId=${channelIds}`)
 			.then(response => {
 				return response.json()
 			})
