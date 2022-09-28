@@ -28,6 +28,19 @@ In the HTML file, you will see a working static HTML file that will let you see 
 
 Note that there is no additional styling or extra markup. The HTML file is made to be as simple as possible for learning purposes.
 
+## Deploying an Azure function
+If you are new to Azure functions, like I was, I highly recommend the [Azure Functions tutorial](https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-node) which goes through the deployment process.
+
+**Steps summary**
+1. Open the repo in Visual Code
+1. Sign in to Azure: You should have an Azure icon on the left where you can select to Sign in.
+1. Create a function app in Azure: See [these steps in the tutorial](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-node#publish-the-project-to-azure) for the instructions on how to do this. The basics summary is: Click the + to create a new resource, select a subscription, region, runtime, and give it a name.
+1. Go to the **Workspace** area in your Azure tab to see your local functions
+1. Select the local project
+1. Press the 'cloud' icon which is for deploying to the Azure cloud
+1. Choose the function (in this case `CaptureSubscribers`)
+
+
 ## What is the code doing?
 
 ### Switching to Google client API

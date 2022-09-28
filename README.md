@@ -29,3 +29,28 @@ Later lessons use more advanced technology for intermediate developers looking t
 7. [Lesson 7 - Converting Classes to Modules](./Lesson7-Modules/)
 8. [Lesson 8 - Converting JavaScript to TypeScript](./Lesson8-TypeScript/)
 9. *Lesson 9 - Converting to Azure Functions*  🚧**[UNDER CONSTRUCTION]**🚧
+
+## Running the application
+In the HTML file, you will see a working static HTML file that will let you see the current subscription counts of two channels. To get it running:
+
+1. Configure your local 'hosts' file to have an entry you will use to load this project (e.g. '127.0.0.1	youtube.local')
+1. Create a web application definition on your web server (such as IIS) that binds to this local hostname (e.g. `youtube.local`).
+1. Bind the web application to the folder where you are hosting the code (e.g. `%mypath%\Lesson9-AzureFunctions` where `%mypath%` is your local file system folder where the Lesson9 folder is)
+1. Deploy the Azure Function to your Azure subscription (see further down for how to do this)
+1. Configure CORS on the Azure subscription to accept your local hostname (e.g. `youtube.local`)
+1. Open the HTML web page in your browser using the local hostname (e.g. `http://youtube.local/AzureFunctions.html`). 
+1. On load of the page, the table will be built out. You can add breakpoints to see the code in action.
+
+Note that there is no additional styling or extra markup. The HTML file is made to be as simple as possible for learning purposes.
+
+## Deploying an Azure function
+If you are new to Azure functions, like I was, I highly recommend the [Azure Functions tutorial](https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-node) which goes through the deployment process.
+
+**Steps summary**
+1. Open the repo in Visual Code
+1. Sign in to Azure: You should have an Azure icon on the left where you can select to Sign in.
+1. Create a function app in Azure: See [these steps in the tutorial](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-node#publish-the-project-to-azure) for the instructions on how to do this. The basics summary is: Click the + to create a new resource, select a subscription, region, runtime, and give it a name.
+1. Go to the **Workspace** area in your Azure tab to see your local functions
+1. Select the local project
+1. Press the 'cloud' icon which is for deploying to the Azure cloud
+1. Choose the function (in this case `CaptureSubscribers`)
