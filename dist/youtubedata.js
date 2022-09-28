@@ -18,10 +18,14 @@ class ChannelData {
     }
 }
 class YouTubeData {
+    //Initialize the object with a default AzureFunctionUrl. Caller can override this value if needed.
+    constructor() {
+        this.AzureFunctionUrl = "https://jcy-dashboard-capturesubscribers.azurewebsites.net/api/capturesubscribers";
+    }
     //Get the subscriber count for a specified channel
     getChannelSubscribers(channelId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const subscriberCount = fetch(`https://jcy-dashboard-capturesubscribers.azurewebsites.net/api/capturesubscribers?channelId=${channelId}`)
+            const subscriberCount = fetch(`${this.AzureFunctionUrl}?channelId=${channelId}`)
                 .then(response => {
                 return response.json();
             })
@@ -39,7 +43,7 @@ class YouTubeData {
             //Build up a list of the IDs we want to get data for, separated by a comma
             const channelIds = channelsList.map((channel) => channel.ChannelId).join();
             //Fetch the data and then fill out the objects
-            var youtubeChannelData = fetch(`https://jcy-dashboard-capturesubscribers.azurewebsites.net/api/capturesubscribers?channelId=${channelIds}`)
+            var youtubeChannelData = fetch(`${this.AzureFunctionUrl}?channelId=${channelIds}`)
                 .then(response => {
                 return response.json();
             })
