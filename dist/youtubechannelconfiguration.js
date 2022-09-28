@@ -20,25 +20,23 @@ class YouTubeChannelConfiguration {
     constructor(apiKey, databaseId) {
         this.apiKey = apiKey;
         this.databaseId = databaseId;
+        this.AzureFunctionUrl = "https://jcy-dashboard-capturesubscribers.azurewebsites.net/api/GetConfiguredChannels";
     }
     //Retrieves the array of channels configured for the dashboard that we need to get data for from the API
     getChannelConfiguration() {
         return __awaiter(this, void 0, void 0, function* () {
-            //Load the Airtable API and specify authentication and the base we want to connect to
-            var Airtable = require('airtable');
-            Airtable.configure({
-                endpointUrl: 'https://api.airtable.com',
-                apiKey: this.apiKey
-            });
-            var base = Airtable.base(this.databaseId);
-            //Select the list of records from the Airtable 
-            var records = yield base('Channels').select().all();
-            //Create the array of configured channels
-            var channelConfigList = new Array();
-            records.forEach(function (record) {
-                var channelConfig = new ChannelConfig(record.get('Label'), record.get('ChannelId'));
-                //Add to the list of channel configuration
-                channelConfigList.push(channelConfig);
+            //Call the Azure function to get the list of configured channels
+            var channelConfigList = yield fetch(this.AzureFunctionUrl)
+                .then(response => {
+                return response.json();
+            })
+                .then(data => {
+                console.log(data);
+                //Convert returned data to strongly typed list of objects
+                var channels = data.map((channelConfig) => {
+                    return new ChannelConfig(channelConfig.Label, channelConfig.ChannelId);
+                });
+                return channels;
             });
             return channelConfigList;
         });
