@@ -17,16 +17,14 @@ class ChannelConfig {
 }
 //Class used to retrieve all channel configuration from a data source
 class YouTubeChannelConfiguration {
-    constructor(apiKey, databaseId) {
-        this.apiKey = apiKey;
-        this.databaseId = databaseId;
+    constructor() {
         this.AzureFunctionUrl = "https://jcy-dashboard-capturesubscribers.azurewebsites.net/api/GetConfiguredChannels";
     }
     //Retrieves the array of channels configured for the dashboard that we need to get data for from the API
     getChannelConfiguration() {
         return __awaiter(this, void 0, void 0, function* () {
             //Call the Azure function to get the list of configured channels
-            var channelConfigList = yield fetch(this.AzureFunctionUrl)
+            var channelConfigList = fetch(this.AzureFunctionUrl)
                 .then(response => {
                 return response.json();
             })
