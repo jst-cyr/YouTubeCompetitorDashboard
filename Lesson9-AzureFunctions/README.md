@@ -23,6 +23,8 @@ In the HTML file, you will see a working static HTML file that will let you see 
 1. Bind the web application to the folder where you are hosting the code (e.g. `%mypath%\Lesson9-AzureFunctions` where `%mypath%` is your local file system folder where the Lesson9 folder is)
 1. Deploy the Azure Functions to your Azure subscription (see further down for how to do this)
 1. Configure CORS on the Azure subscription to accept your local hostname (e.g. `youtube.local`)
+1. Once your Azure Functions are available, get the host name and configure youtubeDashboard.ts to have your host name instead of the one in the repo.
+    `const azureFunctionsHost = "https://jcy-dashboard-capturesubscribers.azurewebsites.net";`
 1. Open the HTML web page in your browser using the local hostname (e.g. `http://youtube.local/AzureFunctions.html`). 
 1. On load of the page, the table will be built out. You can add breakpoints to see the code in action.
 
