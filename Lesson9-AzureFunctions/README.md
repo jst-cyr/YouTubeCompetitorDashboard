@@ -4,11 +4,11 @@ In the previous lesson, the application was updated to TypeScript in preparation
 
 ## Technology used
 - YouTube Channel API (v3): https://www.googleapis.com/youtube/v3/channels
-- Airtable browser API: https://github.com/Airtable/airtable.js/blob/master/build/airtable.browser.js
 - ECMAScript v6 required: Previous steps introduced the need for Array functions [.join](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join) (v1), [.map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) (v5), and [.find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) (v6).
 - ECMAScript v6 also required for `class` definitions and `modules`.
 - Browser or library that supports `import` and `export`. See [Browser support](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#browser_support)
 - Web server (e.g. IIS) as 'import' and 'export' require a protocol such as HTTP. 
+- Airtable NPM package
 - [TypeScript compiler](https://code.visualstudio.com/docs/typescript/typescript-tutorial#_install-the-typescript-compiler) (TSC) is required to compile TypeScript. **This is the first step in the lessons where you will compile TypeScript**
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Node.js 16.x](https://nodejs.org/en/download/releases/)

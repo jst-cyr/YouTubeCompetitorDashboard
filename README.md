@@ -28,7 +28,7 @@ Later lessons use more advanced technology for intermediate developers looking t
 6. [Lesson 6 - Creating Classes in JavaScript](./Lesson6-Classes/)
 7. [Lesson 7 - Converting Classes to Modules](./Lesson7-Modules/)
 8. [Lesson 8 - Converting JavaScript to TypeScript](./Lesson8-TypeScript/)
-9. *Lesson 9 - Converting to Azure Functions*  🚧**[UNDER CONSTRUCTION]**🚧
+9. [Lesson 9 - Converting to Azure Functions](/Lesson9-AzureFunctions/)
 
 ## Running the application
 In the HTML file, you will see a working static HTML file that will let you see the current subscription counts of two channels. To get it running:
