@@ -19,8 +19,8 @@ class ChannelConfig {
 class YouTubeChannelConfiguration {
 	AzureFunctionUrl: string;
 
-	constructor(){
-		this.AzureFunctionUrl = "https://jcy-dashboard-capturesubscribers.azurewebsites.net/api/GetConfiguredChannels";
+	constructor(azureFunctionHost: string){
+		this.AzureFunctionUrl = `${azureFunctionHost}/api/GetConfiguredChannels`;
 	}
 
 	//Retrieves the array of channels configured for the dashboard that we need to get data for from the API

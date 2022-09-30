@@ -19,8 +19,8 @@ class ChannelData {
 }
 class YouTubeData {
     //Initialize the object with a default AzureFunctionUrl. Caller can override this value if needed.
-    constructor() {
-        this.AzureFunctionUrl = "https://jcy-dashboard-capturesubscribers.azurewebsites.net/api/capturesubscribers";
+    constructor(azureFunctionsHost) {
+        this.AzureFunctionUrl = `${azureFunctionsHost}/api/capturesubscribers`;
     }
     //Get the subscriber count for a specified channel
     getChannelSubscribers(channelId) {

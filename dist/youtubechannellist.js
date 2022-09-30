@@ -15,11 +15,11 @@ class YouTubeChannelList {
         this.configuredChannels = configuredChannels;
     }
     //Update the markup with the latest data from the API
-    fillTable() {
+    fillTable(azureFunctionsHost) {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             //Get a list of channel data from the API
-            const youtubeData = new YouTubeData();
+            const youtubeData = new YouTubeData(azureFunctionsHost);
             const channelsList = yield youtubeData.getChannelData(this.configuredChannels);
             //Sort the list of channels by their subscriber count, in descending order (biggest to smallest)
             const sortedChannels = channelsList.sort((a, b) => b.SubscriberCount - a.SubscriberCount);

@@ -12,9 +12,9 @@ class YouTubeChannelList {
 	}
 
 	//Update the markup with the latest data from the API
-	async fillTable(){
+	async fillTable(azureFunctionsHost: string){
 		//Get a list of channel data from the API
-		const youtubeData = new YouTubeData();
+		const youtubeData = new YouTubeData(azureFunctionsHost);
 		const channelsList = await youtubeData.getChannelData(this.configuredChannels);
 
 		//Sort the list of channels by their subscriber count, in descending order (biggest to smallest)

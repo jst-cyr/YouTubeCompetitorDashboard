@@ -12,12 +12,14 @@ import { YouTubeChannelList } from './youtubechannellist.js';
 //Update the markup with the latest data from the API
 function updateStats() {
     return __awaiter(this, void 0, void 0, function* () {
+        //Configure the host to use for Azure functions
+        const azureFunctionsHost = "https://jcy-dashboard-capturesubscribers.azurewebsites.net";
         //Get the configured list of channels we want to show on the dashboard
-        const youtubeChannelConfiguration = new YouTubeChannelConfiguration();
+        const youtubeChannelConfiguration = new YouTubeChannelConfiguration(azureFunctionsHost);
         const configuredChannels = yield youtubeChannelConfiguration.getChannelConfiguration();
         //Fill out the table in the markup with a new YouTube Channel listing
         const youtubeChannelList = new YouTubeChannelList("channelList", configuredChannels);
-        youtubeChannelList.fillTable();
+        youtubeChannelList.fillTable(azureFunctionsHost);
     });
 }
 updateStats();
