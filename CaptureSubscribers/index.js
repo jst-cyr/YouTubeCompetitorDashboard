@@ -1,11 +1,12 @@
 const {google} = require('googleapis');
+const {DefaultAzureCredential} = require('@azure/identity');
+const {SecretClient} = require('@azure/keyvault-secrets');
 
 module.exports = async function (context, req) {
     
     context.log('Beginning capture of YouTube subscribers.');
 
-    //Setup the request data we need to call the API
-    const apiKey = 'AIzaSyClnRkQON9_oUA9nXShlGKOwLXGRG2sqvY';
+    //Get the Channel ID that was passed in
     const channelId = (req.query.channelId || (req.body && req.body.channelId));
 
     //If no channelId provided, immediately stop processing
@@ -18,6 +19,14 @@ module.exports = async function (context, req) {
         };
         return;
     }
+
+    //Get the API key from the key vault
+    const keyVaultName = "CaptureSubscribersVault";
+    const keyVaultUri = `https://${keyVaultName}.vault.azure.net`;
+    const credential = new DefaultAzureCredential();
+    const secretClient = new SecretClient(keyVaultUri, credential);
+    const apiKeySecret = await secretClient.getSecret("Youtube-API-Key");
+    const apiKey = $(apiKeySecret.value);
 
     //Call the YouTube API for the channel data
     const youtube = google.youtube({
