@@ -71,7 +71,7 @@ In order to safely configure out Azure Functions, the settings are stored in the
 1. Generate a new secret and configure the **Airtable database id** secret
     * **Upload options:** Manual
     * **Name:** Airtable-Database-Id
-    * **Secret value:** Put your Airtable database ID value here. It will look something like this: `appBuJh28DrqrfTTy`
+    * **Secret value:** Put your Airtable database ID value here. This is the table in Airtable that contains the configured YouTube channels. It will look something like this: `appBuJh28DrqrfTTy`
     * Leave the rest as defaults/empty.
 
 ## Configuring secure access to Azure Key Vault settings
@@ -96,24 +96,30 @@ The logic to access the key vault requires you to configure some application set
 1. Click on **Configuration** to access the application settings
 1. Create a new application setting named `KEY_VAULT_NAME`. The value specified here should match to the name of the Azure Key Vault you created earlier.
 1. Create a new application setting named `KEY_YOUTUBE_API`. The value specified here should match to the name of the secret you created to contain the YouTube API Key. If you followed the above instructions, this will be `Youtube-API-Key`.
+1. Create a new application setting named `KEY_AIRTABLE_API`. The value specified here should match to the name of the secret you created to contain the Airtable API Key. If you followed the above instructions, this will be `Airtable-API-Key`.
+1. Create a new application setting named `KEY_AIRTABLE_DATABASE_ID`. The value specified here should match to the name of the secret you created to contain the Airtable Database ID. If you followed the above instructions, this will be `Airtable-Database-Id`.
 
 ## Running the Azure Functions locally 
 
 ## Configuring environment variables
 Locally, you will need a `local.settings.json` file that configures the various application settings required by the application. This is an example:
-```
+```json
 {
   "IsEncrypted": false,
   "Values": {
     "FUNCTIONS_WORKER_RUNTIME": "node",
     "KEY_VAULT_NAME" : "MyKeyVault",
-    "KEY_YOUTUBE_API" : "Youtube-API-Key"
+    "KEY_YOUTUBE_API" : "YouTube-API-Key",
+    "KEY_AIRTABLE_API" : "Airtable-API-Key",
+    "KEY_AIRTABLE_DATABASE_ID" : "Airtable-Database-Id"
   }
 }
 ```
 
 * **KEY_VAULT_NAME:** This is the name of your key vault.
 * **KEY_YOUTUBE_API:** This is the name of the key you added to the vault for the Youtube API Key value.
+* **KEY_AIRTABLE_API:** This is the name of the key you added to the vault for the Airtable API Key value.
+* **KEY_AIRTABLE_DATABASE_ID:** This is the name of the key you added to the vault for the Airtable Database ID value (where channels are stored).
 
 
 ## Gaining access to the Key Vault
@@ -127,6 +133,12 @@ You will now be authenticated and can execute your function!
 
 ## What is the code doing?
 
+### Required modules for accessing Azure Key Vault
+The following code ensures we have the libraries required to access the Key Vault and things like the DefaultAzureCredential.
+```javascript
+const {DefaultAzureCredential} = require('@azure/identity');
+const {SecretClient} = require('@azure/keyvault-secrets');
+```
 
 
 ## Learn more about Azure Functions and Secrets
