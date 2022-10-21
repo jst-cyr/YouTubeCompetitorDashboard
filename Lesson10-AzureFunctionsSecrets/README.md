@@ -43,7 +43,7 @@ If you are new to Azure functions, like I was, I highly recommend the [Azure Fun
 1. Select your subscription and then the app resource you created.
 1. Create your Azure Key Vault and enter your values (see below section named **'Creating and Configuring your Azure Key Vault'**)
 1. Configure access to the key vault (see **'Configuring secure access to Azure Key Vault settings'**)
-1. Configure your environment settings (see **'Configuring application settings'**)
+1. Configure your environment settings (see **'Configuring application settings for your Azure Function App'**)
 
 
 ## Creating and Configuring your Azure Key Vault
@@ -87,6 +87,15 @@ In order to safely configure out Azure Functions, the settings are stored in the
     * Members: Assign access to 'Managed identity'
     * Members: *Select members* and then select options to get to your subscription and eventually select your Function app.
 1. Click *Review + assign* and save your changes. The role assignment will be added to IAM!
+
+## Configuring application settings for your Azure Function App
+The logic to access the key vault requires you to configure some application settings. Further on in this file you will see how to configure this locally in `local.settings.json`. For running in the cloud, these are the steps you need to do to configure your Azure Function App.
+
+1. Login to the Azure Portal
+1. Navigate to your Azure Functions App that you have created in your subscription.
+1. Click on **Configuration** to access the application settings
+1. Create a new application setting named `KEY_VAULT_NAME`. The value specified here should match to the name of the Azure Key Vault you created earlier.
+1. Create a new application setting named `KEY_YOUTUBE_API`. The value specified here should match to the name of the secret you created to contain the YouTube API Key. If you followed the above instructions, this will be `Youtube-API-Key`.
 
 ## Running the Azure Functions locally 
 
