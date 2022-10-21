@@ -107,6 +107,7 @@ You will now be authenticated and can execute your function!
  * [Quickstart: Set and retrieve a secret from Azure Key Vault using the Azure portal](https://learn.microsoft.com/en-us/azure/key-vault/secrets/quick-create-portal) (learn.microsoft.com)
  * [Provide access to Key Vault keys, certificates, and secrets with an Azure role-based access control](https://learn.microsoft.com/en-us/azure/key-vault/general/rbac-guide?tabs=azure-cli) (learn.microsoft.com)
  * [Quickstart: Create a JavaScript function in Azure using Visual Studio Code](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-node) (learn.microsoft.com)
+ * [Quickstart: Azure Key Vault secret client library for JavaScript (version 4)](https://learn.microsoft.com/en-us/azure/key-vault/secrets/quick-create-node) (learn.microsoft.com)
  * [How to use Key Vault references for Azure Functions locally](https://learn.microsoft.com/en-us/answers/questions/824221/how-to-use-key-vault-references-for-azure-function.html) (learn.microsoft.com)
  * [A secure way to use Credentials and Secrets in Azure Functions](https://levelup.gitconnected.com/a-secure-way-to-use-credentials-and-secrets-in-azure-functions-7ec91813c807) (levelup.gitconnected.com)
  * [It only takes five simple steps to secure your secrets in Azure Functions](https://sandervandevelde.wordpress.com/2019/05/01/it-only-takes-simple-five-steps-to-secure-your-secrets-in-azure-functions/) (sandervandevelde.wordpress.com)
