@@ -112,3 +112,4 @@ You will now be authenticated and can execute your function!
  * [A secure way to use Credentials and Secrets in Azure Functions](https://levelup.gitconnected.com/a-secure-way-to-use-credentials-and-secrets-in-azure-functions-7ec91813c807) (levelup.gitconnected.com)
  * [It only takes five simple steps to secure your secrets in Azure Functions](https://sandervandevelde.wordpress.com/2019/05/01/it-only-takes-simple-five-steps-to-secure-your-secrets-in-azure-functions/) (sandervandevelde.wordpress.com)
  * [Using Managed (System) Identities to access Azure Key Vault](https://www.serverlessnotes.com/docs/using-managed-system-identities-to-access-azure-key-vault) (serverlessnotes.com)
+ * [Manage a function app - Work with Application Settings](https://learn.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings?tabs=portal) (learn.microsoft.com)
