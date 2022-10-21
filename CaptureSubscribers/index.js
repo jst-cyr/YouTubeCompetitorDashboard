@@ -6,6 +6,28 @@ module.exports = async function (context, req) {
     
     context.log('Beginning capture of YouTube subscribers.');
 
+    /*Check for environment variables and report back if any are missing. Configuration needs to be checked first to ensure the developer gets 
+     to a working environment faster.
+    */
+    const keyVaultName = "CaptureSubscribersVault";
+    const youtubeAPIKeySecretName = "YouTube-API-Key";
+    if(!keyVaultName || !youtubeAPIKeySecretName){
+        var missingEnvironmentSettingMessage = "Environment settings have not been configured correctly."
+        if(!keyVaultName){
+            missingEnvironmentSettingMessage += "\n -KEY_VAULT_NAME : This environment variable has not been configured with a value. Please specify the name of your key vault to be used in the URL for the vault (e.g. https://${keyVaultName}.vault.azure.net.";
+        }
+        if(!youtubeAPIKeySecretName){
+            missingEnvironmentSettingMessage += "\n -KEY_YOUTUBE_API: This environment variable  has not been configured with a value. Please specify the name of the secret in the vault which contains the API Key used to connect to the YouTube API.";
+        }
+
+        context.log(missingEnvironmentSettingMessage);
+        context.res = {
+            status: 500,
+            body: missingEnvironmentSettingMessage,
+        };
+        return;
+    }
+
     //Get the Channel ID that was passed in
     const channelId = (req.query.channelId || (req.body && req.body.channelId));
 
@@ -21,12 +43,22 @@ module.exports = async function (context, req) {
     }
 
     //Get the API key from the key vault
-    const keyVaultName = "CaptureSubscribersVault";
     const keyVaultUri = `https://${keyVaultName}.vault.azure.net`;
     const credential = new DefaultAzureCredential();
     const secretClient = new SecretClient(keyVaultUri, credential);
-    const apiKeySecret = await secretClient.getSecret("Youtube-API-Key");
+    const apiKeySecret = await secretClient.getSecret(youtubeAPIKeySecretName);
     const apiKey = apiKeySecret.value;
+
+    //If no API Key is found in the vault, we need to inform the calling function
+    if(!apiKey){
+        const noAPIKeySecret = `No API Key value was found in vault ${keyVaultName} and secret ${youtubeAPIKeySecretName}`;
+        context.log(noAPIKeySecret);
+        context.res = {
+            status: 500,
+            body: noAPIKeySecret,
+        };
+        return;
+    }
 
     //Call the YouTube API for the channel data
     const youtube = google.youtube({
