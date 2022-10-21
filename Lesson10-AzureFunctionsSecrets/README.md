@@ -41,7 +41,8 @@ If you are new to Azure functions, like I was, I highly recommend the [Azure Fun
 1. Choose the local project you want to deploy (in this case the one with `CaptureSubscribers` and `GetConfiguredChannels` functions)
 1. Press the 'cloud' icon which is for deploying to the Azure cloud
 1. Select your subscription and then the app resource you created.
-1. Create your Azure Key Vault and enter your values (see below section)
+1. Create your Azure Key Vault and enter your values (see below section named **'Creating and Configuring your Azure Key Vault'**)
+1. Configure access to the key vault (see **'Configuring secure access to Azure Key Vault settings'**)
 
 
 ## Creating and Configuring your Azure Key Vault
@@ -72,7 +73,28 @@ In order to safely configure out Azure Functions, the settings are stored in the
     * **Secret value:** Put your Airtable database ID value here. It will look something like this: `appBuJh28DrqrfTTy`
     * Leave the rest as defaults/empty.
 
+## Configuring secure access to Azure Key Vault settings
+1. In Azure Portal, navigate to your Azure Function App. This was created earlier in your steps and is where you deployed all your Azure Functions.
+1. On the left pane, scroll down to the **Settings** section and select **Identity**.
+1. Click the **Status** toggle to **On** and hit *Save* to save the changes. You'll be asked to confirm.
+1. In Azure Portal, navigate back to your Azure Key Vault you have created.
+1. On the left pane, select **Access configuration** in the **Settings** section. 
+1. Enable Azure RBAC by switching from *Vault access policy* to **Azure role-based access control**
+1. Go to the **Access control (IAM)** for the vault to add a new policy.
+1. Click *Add role assignment* button and make these selections:
+    * Role: Key Vault Reader
+    * Members: Assign access to 'Managed identity'
+    * Members: *Select members* and then select options to get to your subscription and eventually select your Function app.
+1. Click *Review + assign* and save your changes. The role assignment will be added to IAM!
 
+## Running an Azure Function locally
+Once you've secured your Azure Function in the portal, you may not be able to execute the Azure Function  from your Visual Code instance. You might get an error that states: `Caller is not authorized to perform action on resource`. Assuming you setup the Key Vault, by default your Azure account has access to the vault, so you need to ensure your Visual Code authenticates as you.
+
+1. Open a terminal in Visual Code
+1. Type `az login` at the terminal prompt. This will launch a browser window to authenticate to Azure.
+1. Authenticate to the Azure portal with the account you used to setup the Key Vault.
+
+You will now be authenticated and can execute your function!
 
 ## What is the code doing?
 
@@ -80,9 +102,12 @@ In order to safely configure out Azure Functions, the settings are stored in the
 
 ## Learn more about Azure Functions and Secrets
 
- * [Use Key Vault references for App Service and Azure Functions](https://learn.microsoft.com/en-us/azure/app-service/app-service-key-vault-references?tabs=azure-cli)
- * [Quickstart: Create a key vault using the Azure Portal](https://learn.microsoft.com/en-us/azure/key-vault/general/quick-create-portal)
- * [Quickstart: Set and retrieve a secret from Azure Key Vault using the Azure portal](https://learn.microsoft.com/en-us/azure/key-vault/secrets/quick-create-portal)
- * [A secure way to use Credentials and Secrets in Azure Functions](https://levelup.gitconnected.com/a-secure-way-to-use-credentials-and-secrets-in-azure-functions-7ec91813c807)
- * [It only takes five simple steps to secure your secrets in Azure Functions](https://sandervandevelde.wordpress.com/2019/05/01/it-only-takes-simple-five-steps-to-secure-your-secrets-in-azure-functions/)
- * 
+ * [Use Key Vault references for App Service and Azure Functions](https://learn.microsoft.com/en-us/azure/app-service/app-service-key-vault-references?tabs=azure-cli) (learn.microsoft.com)
+ * [Quickstart: Create a key vault using the Azure Portal](https://learn.microsoft.com/en-us/azure/key-vault/general/quick-create-portal) (learn.microsoft.com)
+ * [Quickstart: Set and retrieve a secret from Azure Key Vault using the Azure portal](https://learn.microsoft.com/en-us/azure/key-vault/secrets/quick-create-portal) (learn.microsoft.com)
+ * [Provide access to Key Vault keys, certificates, and secrets with an Azure role-based access control](https://learn.microsoft.com/en-us/azure/key-vault/general/rbac-guide?tabs=azure-cli) (learn.microsoft.com)
+ * [Quickstart: Create a JavaScript function in Azure using Visual Studio Code](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-node) (learn.microsoft.com)
+ * [How to use Key Vault references for Azure Functions locally](https://learn.microsoft.com/en-us/answers/questions/824221/how-to-use-key-vault-references-for-azure-function.html) (learn.microsoft.com)
+ * [A secure way to use Credentials and Secrets in Azure Functions](https://levelup.gitconnected.com/a-secure-way-to-use-credentials-and-secrets-in-azure-functions-7ec91813c807) (levelup.gitconnected.com)
+ * [It only takes five simple steps to secure your secrets in Azure Functions](https://sandervandevelde.wordpress.com/2019/05/01/it-only-takes-simple-five-steps-to-secure-your-secrets-in-azure-functions/) (sandervandevelde.wordpress.com)
+ 
