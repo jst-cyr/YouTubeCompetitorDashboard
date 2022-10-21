@@ -43,6 +43,7 @@ If you are new to Azure functions, like I was, I highly recommend the [Azure Fun
 1. Select your subscription and then the app resource you created.
 1. Create your Azure Key Vault and enter your values (see below section named **'Creating and Configuring your Azure Key Vault'**)
 1. Configure access to the key vault (see **'Configuring secure access to Azure Key Vault settings'**)
+1. Configure your environment settings (see **'Configuring application settings'**)
 
 
 ## Creating and Configuring your Azure Key Vault
@@ -87,7 +88,26 @@ In order to safely configure out Azure Functions, the settings are stored in the
     * Members: *Select members* and then select options to get to your subscription and eventually select your Function app.
 1. Click *Review + assign* and save your changes. The role assignment will be added to IAM!
 
-## Running an Azure Function locally
+## Running the Azure Functions locally 
+
+## Configuring environment variables
+Locally, you will need a `local.settings.json` file that configures the various application settings required by the application. This is an example:
+```
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "KEY_VAULT_NAME" : "MyKeyVault",
+    "KEY_YOUTUBE_API" : "Youtube-API-Key"
+  }
+}
+```
+
+* **KEY_VAULT_NAME:** This is the name of your key vault.
+* **KEY_YOUTUBE_API:** This is the name of the key you added to the vault for the Youtube API Key value.
+
+
+## Gaining access to the Key Vault
 Once you've secured your Azure Function in the portal, you may not be able to execute the Azure Function  from your Visual Code instance. You might get an error that states: `Caller is not authorized to perform action on resource`. Assuming you setup the Key Vault, by default your Azure account has access to the vault, so you need to ensure your Visual Code authenticates as you.
 
 1. Open a terminal in Visual Code
