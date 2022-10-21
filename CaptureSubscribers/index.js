@@ -9,8 +9,8 @@ module.exports = async function (context, req) {
     /*Check for environment variables and report back if any are missing. Configuration needs to be checked first to ensure the developer gets 
      to a working environment faster.
     */
-    const keyVaultName = "CaptureSubscribersVault";
-    const youtubeAPIKeySecretName = "YouTube-API-Key";
+    const keyVaultName = process.env["KEY_VAULT_NAME"];
+    const youtubeAPIKeySecretName =  process.env["KEY_YOUTUBE_API"];
     if(!keyVaultName || !youtubeAPIKeySecretName){
         var missingEnvironmentSettingMessage = "Environment settings have not been configured correctly."
         if(!keyVaultName){
