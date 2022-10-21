@@ -26,7 +26,7 @@ module.exports = async function (context, req) {
     const credential = new DefaultAzureCredential();
     const secretClient = new SecretClient(keyVaultUri, credential);
     const apiKeySecret = await secretClient.getSecret("Youtube-API-Key");
-    const apiKey = $(apiKeySecret.value);
+    const apiKey = apiKeySecret.value;
 
     //Call the YouTube API for the channel data
     const youtube = google.youtube({
