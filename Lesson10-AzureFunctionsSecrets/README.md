@@ -82,7 +82,7 @@ In order to safely configure out Azure Functions, the settings are stored in the
 1. Enable Azure RBAC by switching from *Vault access policy* to **Azure role-based access control**
 1. Go to the **Access control (IAM)** for the vault to add a new policy.
 1. Click *Add role assignment* button and make these selections:
-    * Role: Key Vault Reader
+    * Role: Key Vault Secrets User
     * Members: Assign access to 'Managed identity'
     * Members: *Select members* and then select options to get to your subscription and eventually select your Function app.
 1. Click *Review + assign* and save your changes. The role assignment will be added to IAM!
@@ -111,4 +111,4 @@ You will now be authenticated and can execute your function!
  * [How to use Key Vault references for Azure Functions locally](https://learn.microsoft.com/en-us/answers/questions/824221/how-to-use-key-vault-references-for-azure-function.html) (learn.microsoft.com)
  * [A secure way to use Credentials and Secrets in Azure Functions](https://levelup.gitconnected.com/a-secure-way-to-use-credentials-and-secrets-in-azure-functions-7ec91813c807) (levelup.gitconnected.com)
  * [It only takes five simple steps to secure your secrets in Azure Functions](https://sandervandevelde.wordpress.com/2019/05/01/it-only-takes-simple-five-steps-to-secure-your-secrets-in-azure-functions/) (sandervandevelde.wordpress.com)
- 
+ * [Using Managed (System) Identities to access Azure Key Vault](https://www.serverlessnotes.com/docs/using-managed-system-identities-to-access-azure-key-vault) (serverlessnotes.com)
