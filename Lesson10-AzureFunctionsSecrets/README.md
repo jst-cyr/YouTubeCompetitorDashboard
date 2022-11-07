@@ -24,7 +24,7 @@ In the HTML file, you will see a working static HTML file that will let you see 
 1. Deploy the Azure Functions to your Azure subscription (see further down for how to do this)
 1. Configure CORS on the Azure subscription to accept your local hostname (e.g. `youtube.local`)
 1. Once your Azure Functions are available, get the host name and configure youtubeDashboard.ts to have your host name instead of the one in the repo.
-    `const azureFunctionsHost = "https://jcy-dashboard-capturesubscribers.azurewebsites.net";`
+    `const ENV_AZURE_FUNCTIONS_HOST = "https://jcy-dashboard-capturesubscribers.azurewebsites.net";`
 1. Open the HTML web page in your browser using the local hostname (e.g. `http://youtube.local/AzureFunctions.html`). 
 1. On load of the page, the table will be built out. You can add breakpoints to see the code in action.
 
@@ -101,7 +101,7 @@ The logic to access the key vault requires you to configure some application set
 
 ## Running the Azure Functions locally 
 
-## Configuring environment variables
+### Configuring environment variables
 Locally, you will need a `local.settings.json` file that configures the various application settings required by the application. This is an example:
 ```json
 {
@@ -121,8 +121,7 @@ Locally, you will need a `local.settings.json` file that configures the various 
 * **KEY_AIRTABLE_API:** This is the name of the key you added to the vault for the Airtable API Key value.
 * **KEY_AIRTABLE_DATABASE_ID:** This is the name of the key you added to the vault for the Airtable Database ID value (where channels are stored).
 
-
-## Gaining access to the Key Vault
+### Gaining access to the Key Vault
 Once you've secured your Azure Function in the portal, you may not be able to execute the Azure Function  from your Visual Code instance. You might get an error that states: `Caller is not authorized to perform action on resource`. Assuming you setup the Key Vault, by default your Azure account has access to the vault, so you need to ensure your Visual Code authenticates as you.
 
 1. Open a terminal in Visual Code
