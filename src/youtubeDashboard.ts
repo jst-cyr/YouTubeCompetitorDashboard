@@ -2,10 +2,7 @@ import { YouTubeChannelConfiguration, ChannelConfig } from './youtubechannelconf
 import { YouTubeChannelList } from './youtubechannellist.js';
 
 //Update the markup with the latest data from the API
-async function updateStats(){
-  //Configure the host to use for Azure functions
-  const azureFunctionsHost = "https://jcy-dashboard-capturesubscribers.azurewebsites.net";
-
+async function updateStats(azureFunctionsHost: string){
   //Get the configured list of channels we want to show on the dashboard
   const youtubeChannelConfiguration = new YouTubeChannelConfiguration(azureFunctionsHost);
   const configuredChannels: ChannelConfig[] = await youtubeChannelConfiguration.getChannelConfiguration();
@@ -15,4 +12,6 @@ async function updateStats(){
   youtubeChannelList.fillTable(azureFunctionsHost);
 }
 
-updateStats();
+//Configure the host to use for Azure functions
+const ENV_AZURE_FUNCTIONS_HOST = "https://jcy-dashboard-capturesubscribers.azurewebsites.net";
+updateStats(ENV_AZURE_FUNCTIONS_HOST);

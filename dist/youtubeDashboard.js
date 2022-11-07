@@ -10,10 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { YouTubeChannelConfiguration } from './youtubechannelconfiguration.js';
 import { YouTubeChannelList } from './youtubechannellist.js';
 //Update the markup with the latest data from the API
-function updateStats() {
+function updateStats(azureFunctionsHost) {
     return __awaiter(this, void 0, void 0, function* () {
-        //Configure the host to use for Azure functions
-        const azureFunctionsHost = "https://jcy-dashboard-capturesubscribers.azurewebsites.net";
         //Get the configured list of channels we want to show on the dashboard
         const youtubeChannelConfiguration = new YouTubeChannelConfiguration(azureFunctionsHost);
         const configuredChannels = yield youtubeChannelConfiguration.getChannelConfiguration();
@@ -22,4 +20,6 @@ function updateStats() {
         youtubeChannelList.fillTable(azureFunctionsHost);
     });
 }
-updateStats();
+//Configure the host to use for Azure functions
+const ENV_AZURE_FUNCTIONS_HOST = "https://jcy-dashboard-capturesubscribers.azurewebsites.net";
+updateStats(ENV_AZURE_FUNCTIONS_HOST);
