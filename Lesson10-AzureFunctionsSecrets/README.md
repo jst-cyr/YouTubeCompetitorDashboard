@@ -139,6 +139,64 @@ const {DefaultAzureCredential} = require('@azure/identity');
 const {SecretClient} = require('@azure/keyvault-secrets');
 ```
 
+### Extracting values for environment variables inside an Azure Function
+In order to be more secure and move your settings used with your key vault out of the codebase, you need environment variables. The following code is an example of how to extract these from the environment:
+
+```javascript
+    const keyVaultName = process.env["KEY_VAULT_NAME"];
+    const youtubeAPIKeySecretName =  process.env["KEY_YOUTUBE_API"];
+```
+
+In the above code, the values extracted here will be used to connect to the appropriate Key Vault (KEY_VAULT_NAME) and extract the value for the secret with a specific name (KEY_YOUTUBE_API).
+
+### Validating environment variable configuration
+If you are just learning, you might want to skip straight to extracting values. However, it's a good idea to validate the environment configurations so that you can throw a helpful error back to the developer about any missing configurations. I particularly needed this when first setting my code up in Azure as I had missed configuring a few values and the error messages helped me know which ones were missing a value.
+
+```javascript
+    if(!keyVaultName || !youtubeAPIKeySecretName){
+        var missingEnvironmentSettingMessage = "Environment settings have not been configured correctly."
+        if(!keyVaultName){
+            missingEnvironmentSettingMessage += "\n -KEY_VAULT_NAME : This environment variable has not been configured with a value. Please specify the name of your key vault to be used in the URL for the vault (e.g. https://${keyVaultName}.vault.azure.net.";
+        }
+        if(!youtubeAPIKeySecretName){
+            missingEnvironmentSettingMessage += "\n -KEY_YOUTUBE_API: This environment variable  has not been configured with a value. Please specify the name of the secret in the vault which contains the API Key used to connect to the YouTube API.";
+        }
+
+        context.log(missingEnvironmentSettingMessage);
+        context.res = {
+            status: 500,
+            body: missingEnvironmentSettingMessage,
+        };
+        return;
+    }
+```
+
+In the above code, I have a few error messages that I went to send back to the calling application, along with a 500 error code. I test all the settings and for each one that is missing add the error message to the result.
+
+### Retrieve a value from the Azure Key Vault
+Once you have valid configuration, the Azure Function needs to create a `DefaultAzureCredential` and a `SecretClient` that are configured for your Key Vault. This is essentially the 'connection' to the vault. Here is an example from the code that shows connecting to extract a secret value:
+
+```javascript
+    const keyVaultUri = `https://${keyVaultName}.vault.azure.net`;
+    const credential = new DefaultAzureCredential();
+    const secretClient = new SecretClient(keyVaultUri, credential);
+    const apiKeySecret = await secretClient.getSecret(youtubeAPIKeySecretName);
+    const apiKey = apiKeySecret.value;
+```
+
+In the above code, the following happens:
+1. The vault name (`keyVaultName`) is put into a full valid URI that will connect to the Azure Key Vault resource.
+1. The `DefaultAzureCredential` and the `keyVaultUri` are then used to instantiate a `SecretClient` which we can call. 
+1. A call is made to `getSecret` using the name of the key we want to get a value for. In this case, `youtubeAPIKeySecretName` holds that value. The response is stored in the constant.
+1. The value of the secret is then extracted from the response using `.value`
+
+**NOTE:** You do not need a new `SecretClient` connection for each Key Vault value that you want. You can use the same client to get multiple secrets:
+
+```javascript
+    const secretClient = new SecretClient(keyVaultUri, credential);
+    const apiKeySecret = await secretClient.getSecret(apiKeySecretName);
+    const databaseIdSecret = await secretClient.getSecret(databaseIdSecretName);
+```
 
 ## Learn more about Azure Functions and Secrets
 
